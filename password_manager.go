@@ -6,15 +6,12 @@ import (
 )
 
 type key_secret struct {
-	description string
-	username string
+	description, username  string
 	tags []string
 }
 
 type config_argument struct {
-	singleLetter string
-	name string
-	description string
+	singleLetter, name, description string
 }
 
 var list_of_commands = "\n\thelp | -h: Prints this message\n" +
