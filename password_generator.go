@@ -1,22 +1,39 @@
-package password_generator
+package password_manager
 
-type password_configuration struct {
+import "github.com/nu7hatch/gouuid"
+
+type PasswordConfiguration struct {
 	generationMethod string
-	pattern string
-	strengthFactor int8
+	seed             string
+	strengthFactor   int8
 }
 
-func generate_password(password_configuration password_configuration) string {
-	if password_configuration.generationMethod == "uuid" {
-		return uuid(password_configuration.strengthFactor, password_configuration.pattern)
+func GeneratePassword(passwordConfiguration PasswordConfiguration) string {
+	if passwordConfiguration.generationMethod == "uuid" {
+		return getUuid(passwordConfiguration.strengthFactor, passwordConfiguration.seed)
+	} else if passwordConfiguration.generationMethod == "cert" {
+		return getCert(passwordConfiguration)
+	} else {
+		return ""
 	}
 }
 
+func getCert(passwordConfiguration PasswordConfiguration) string {
+	return ""
+}
 
-func uuid(strengthFactor int8, pattern string) string {
+func getUuid(strengthFactor int8, pattern string) string {
 	if strengthFactor == 4 {
-		return uuid.newV4()
+		u4, err := uuid.NewV4()
+		if err != nil {
+			return ""
+		}
+		return u4.String()
 	} else if strengthFactor == 5 {
-		return uuid.newV5(pattern)
+		u5, err := uuid.NewV5(uuid.NamespaceURL, []byte(pattern))
+		if err != nil {
+			return ""
+		}
+		return u5.String()
 	}
 }

@@ -1,38 +1,38 @@
-package password_generator
+package password_manager
 
 import (
-	"os"
 	"fmt"
+	"os"
 )
 
-type key_secret struct {
-	description, username  string
-	tags []string
+type KeySecret struct {
+	description, username string
+	tags                  []string
 }
 
-type config_argument struct {
+type ConfigArgument struct {
 	singleLetter, name, description string
 }
 
-var list_of_commands = "\n\thelp | -h: Prints this message\n" +
+var ListOfCommands = "\n\thelp | -h: Prints this message\n" +
 	"\tversion | -v: Print the version of the app\n" +
 	"\tget | -g {DESCRIPTION} {USERNAME} {OPTIONS}: Copy the password to the clipboard, for more information use `password_manager get help\n" +
-	"\tadd | -a {DESCRIPTION} {USERNAME} {OPTIONS}: Add a new password entry, for more information use `password_manager add help\n"+
+	"\tadd | -a {DESCRIPTION} {USERNAME} {OPTIONS}: Add a new password entry, for more information use `password_manager add help\n" +
 	"\tconfig | -c {OPTIONS}: Configure encryption or password generation method\n"
 
-var HELP_COMMAND = config_argument{
+var HELP_COMMAND = ConfigArgument{
 	singleLetter: "-h",
-	name: "help",
+	name:         "help",
 	description: "Usage: `password_manager {COMMANDS} {OPTIONS}`" +
 		"\n The command list is the below" +
-		list_of_commands +
+		ListOfCommands +
 		"Hope this helps =)",
 }
 
-var ABOUT = config_argument{
+var ABOUT = ConfigArgument{
 	singleLetter: "-v",
-	name: "version",
-	description: "Password Manager in Go version 0.0.1",
+	name:         "version",
+	description:  "Password Manager in Go version 0.0.1",
 }
 
 func main() {
@@ -40,18 +40,18 @@ func main() {
 	parseArgs(arguments)
 }
 
-var GET_COMMAND = config_argument{
+var GET_COMMAND = ConfigArgument{
 	singleLetter: "-g",
-	name: "get",
+	name:         "get",
 	description: "Copy the password to the clipboard\n" +
 		"Options:\n" +
 		"\thelp: Print this help\n" +
 		"\tverbose: Print the password in the console, not only copy to clipboard\n",
 }
 
-var ADD_COMMAND = config_argument{
+var ADD_COMMAND = ConfigArgument{
 	singleLetter: "-a",
-	name: "add",
+	name:         "add",
 	description: "Add a new password entry\n" +
 		"Options:\n" +
 		"\thelp: Print this help\n" +
@@ -59,12 +59,18 @@ var ADD_COMMAND = config_argument{
 		"\t",
 }
 
-var CONFIG_COMMAND = config_argument{
-
+var CONFIG_COMMAND = ConfigArgument{
+	singleLetter: "-a",
+	name:         "add",
+	description: "Configure the password generation\n" +
+		"Options:\n" +
+		"\thelp: Print this help\n" +
+		"\tuuid\n" +
+		"\t",
 }
 
 func parseArgs(arguments []string) {
-	for index:=0; index < len(arguments); index++ {
+	for index := 0; index < len(arguments); index++ {
 		value := arguments[index]
 		if checkIfCommand(value, HELP_COMMAND) {
 			fmt.Println(HELP_COMMAND.description)
@@ -93,10 +99,25 @@ func handleAdd(arguments []string) {
 }
 
 func handleGet(arguments []string) {
-
+	description := arguments[1]
+	username := arguments[2]
+	savedPassword := GetPassword(description, username)
+	if savedPassword == "" {
+		savedPassword = GeneratePassword(GetConfiguration(description, username))
+	}
+	return savedPassword
+}
+func GetConfiguration(description string, username string) PasswordConfiguration {
+	return PasswordConfiguration{
+		generationMethod:"uuid",
+		seed: "lPegz_password_manager_in_go",
+		strengthFactor:4,
+	}
+}
+func GetPassword(description, username string) string {
+	return ""
 }
 
-func checkIfCommand(value string, command config_argument) bool {
+func checkIfCommand(value string, command configArgument) bool {
 	return value == command.singleLetter || value == "--"+command.name || value == command.name
 }
-
