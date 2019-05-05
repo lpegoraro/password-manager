@@ -1,6 +1,8 @@
 # Password Manager
+[![Build Status](https://travis-ci.com/lpegoraro/password-manager.svg?branch=master)](https://travis-ci.com/lpegoraro/password-manager)
 
 POC created to test and enhance Go skills 
+
 
 ## Getting started
 
