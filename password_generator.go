@@ -1,4 +1,4 @@
-package password_manager
+package main
 
 import "github.com/nu7hatch/gouuid"
 
@@ -36,4 +36,5 @@ func getUuid(strengthFactor int8, pattern string) string {
 		}
 		return u5.String()
 	}
+	return ""
 }

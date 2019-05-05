@@ -1,4 +1,4 @@
-package password_manager
+package main
 
 import (
 	"fmt"
@@ -25,8 +25,7 @@ var HELP_COMMAND = ConfigArgument{
 	name:         "help",
 	description: "Usage: `password_manager {COMMANDS} {OPTIONS}`" +
 		"\n The command list is the below" +
-		ListOfCommands +
-		"Hope this helps =)",
+		ListOfCommands,
 }
 
 var ABOUT = ConfigArgument{
