@@ -98,7 +98,7 @@ func handleAdd(arguments []string) {
 
 }
 
-func handleGet(arguments []string) {
+func handleGet(arguments []string) string {
 	description := arguments[1]
 	username := arguments[2]
 	savedPassword := GetPassword(description, username)
@@ -109,15 +109,15 @@ func handleGet(arguments []string) {
 }
 func GetConfiguration(description string, username string) PasswordConfiguration {
 	return PasswordConfiguration{
-		generationMethod:"uuid",
-		seed: "lPegz_password_manager_in_go",
-		strengthFactor:4,
+		generationMethod: "uuid",
+		seed:             "lPegz_password_manager_in_go",
+		strengthFactor:   4,
 	}
 }
 func GetPassword(description, username string) string {
 	return ""
 }
 
-func checkIfCommand(value string, command configArgument) bool {
+func checkIfCommand(value string, command ConfigArgument) bool {
 	return value == command.singleLetter || value == "--"+command.name || value == command.name
 }
