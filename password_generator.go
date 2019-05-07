@@ -9,9 +9,9 @@ import (
 )
 
 type PasswordConfiguration struct {
-	generationMethod string
-	seed             string
-	strengthFactor   int8
+	generationMethod string `json: "generationMethod"`
+	seed             string `json: "seed"`
+	strengthFactor   int8   `json: "strenghtFactor"`
 }
 
 func GeneratePassword(passwordConfiguration PasswordConfiguration) string {
