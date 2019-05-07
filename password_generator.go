@@ -1,6 +1,12 @@
 package main
 
-import "github.com/nu7hatch/gouuid"
+import (
+	"bufio"
+	"fmt"
+	"github.com/nu7hatch/gouuid"
+	"os"
+	"strings"
+)
 
 type PasswordConfiguration struct {
 	generationMethod string
@@ -13,6 +19,12 @@ func GeneratePassword(passwordConfiguration PasswordConfiguration) string {
 		return getUuid(passwordConfiguration.strengthFactor, passwordConfiguration.seed)
 	} else if passwordConfiguration.generationMethod == "cert" {
 		return getCert(passwordConfiguration)
+	} else if passwordConfiguration.generationMethod == "custom" {
+		reader := bufio.NewReader(os.Stdin)
+		fmt.Println("Insert the password you want:")
+		password, _ := reader.ReadString('\n')
+		password = strings.Replace(password, "\n", "", -1)
+		return password
 	} else {
 		return ""
 	}
