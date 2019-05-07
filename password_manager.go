@@ -18,7 +18,7 @@ var ListOfCommands = "\n\thelp | -h: Prints this message\n" +
 	"\tversion | -v: Print the version of the app\n" +
 	"\tget | -g {DESCRIPTION} {USERNAME} {OPTIONS}: Copy the password to the clipboard, for more information use `password_manager get help\n" +
 	"\tadd | -a {DESCRIPTION} {USERNAME} {OPTIONS}: Add a new password entry, for more information use `password_manager add help\n" +
-	"\tconfig | -c {OPTIONS}: Configure encryption or password generation method\n"
+	"\tconfig | -c {uuid|cert|random|custom}: Configure encryption or password generation method\n"
 
 var HELP_COMMAND = ConfigArgument{
 	singleLetter: "-h",
@@ -94,7 +94,14 @@ func handleConfig(arguments []string) {
 }
 
 func handleAdd(arguments []string) {
+	description := arguments[0]
+	username := arguments[1]
 
+	fmt.Println("Adding " + description + "password for the user " + username)
+	configuration := GetCurrentConfiguration()
+	passwordGenerated := GeneratePassword(configuration)
+	save(description, username, passwordGenerated)
+	fmt.Println("Password Generated: " + passwordGenerated)
 }
 
 func handleGet(arguments []string) string {
@@ -106,6 +113,11 @@ func handleGet(arguments []string) string {
 	}
 	return savedPassword
 }
+
+func save(description string, username string, password string) {
+
+}
+
 func GetConfiguration(description string, username string) PasswordConfiguration {
 	return PasswordConfiguration{
 		generationMethod: "uuid",
