@@ -1,17 +1,19 @@
 # Password Manager
+
 [![Build Status](https://travis-ci.com/lpegoraro/password-manager.svg?branch=master)](https://travis-ci.com/lpegoraro/password-manager)
 
-POC created to test and enhance Go skills 
-
+POC created to test and enhance Go skills
 
 ## Getting started
 
 ```bash
-$ go build
+go build
 ```
 
 ## Usage
+
 ```bash
+$ password-manager -h
 Password Manager in Go version 0.0.1
 Usage: `password_manager {COMMANDS} {OPTIONS}`
  The command list is the below
