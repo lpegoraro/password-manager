@@ -23,7 +23,8 @@ Usage: `password_manager {COMMANDS} {OPTIONS}`
 ```
 
 ## TODO
- - Create passwords in dictionaries with login and tags to know from where this is from
- - Store in several configurable ways (configuration and multi-package implementation)
- - Support most common types of encryption
- - Provide safe web service 
+
+- Create passwords in dictionaries with login and tags to know from where this is from
+- Store in several configurable ways (configuration and multi-package implementation)
+- Support most common types of encryption
+- Provide safe web service in API
