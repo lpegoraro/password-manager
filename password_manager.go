@@ -96,8 +96,6 @@ func handleConfig(arguments []string) {
 func handleAdd(arguments []string) {
 	description := arguments[0]
 	username := arguments[1]
-
-	fmt.Println("Adding " + description + "password for the user " + username)
 	configuration := GetCurrentConfiguration()
 	passwordGenerated := GeneratePassword(configuration)
 	save(description, username, passwordGenerated)
@@ -109,7 +107,7 @@ func handleGet(arguments []string) string {
 	username := arguments[2]
 	savedPassword := GetPassword(description, username)
 	if savedPassword == "" {
-		savedPassword = GeneratePassword(GetConfiguration(description, username))
+		savedPassword = GeneratePassword(GetCurrentConfiguration())
 	}
 	return savedPassword
 }
@@ -118,13 +116,6 @@ func save(description string, username string, password string) {
 
 }
 
-func GetConfiguration(description string, username string) PasswordConfiguration {
-	return PasswordConfiguration{
-		generationMethod: "uuid",
-		seed:             "lPegz_password_manager_in_go",
-		strengthFactor:   4,
-	}
-}
 func GetPassword(description, username string) string {
 	return ""
 }

@@ -10,7 +10,7 @@ var COMMENDATION = "It is highly recommended to change the default by creating a
 
 func GetCurrentConfiguration() PasswordConfiguration {
 	fileConfiguration := LoadFromFile()
-	if fileConfiguration.generationMethod == "" {
+	if fileConfiguration.Method == "" {
 		fmt.Println(COMMENDATION)
 		return GetDefaultConfig()
 	}
@@ -18,12 +18,11 @@ func GetCurrentConfiguration() PasswordConfiguration {
 }
 
 func GetDefaultConfig() PasswordConfiguration {
-	return PasswordConfiguration{
-		generationMethod: "uuid",
-		seed:             "pwd_manager_test",
-		strengthFactor:   6,
+	return PasswordConfiguration {
+		Method: "uuid",
+		Seed:   "pwd_manager_test",
+		Factor: 5,
 	}
-
 }
 
 func check(e error) {
@@ -33,14 +32,12 @@ func check(e error) {
 }
 
 func LoadFromFile() PasswordConfiguration {
-	configFile, err := ioutil.ReadFile("./config/*.json")
+	configFile, err := ioutil.ReadFile("./config/password_configuration.json")
 	check(err)
-	// TODO Remove this log
-	fmt.Println(string(configFile))
 	configuration := PasswordConfiguration{}
-	_ = json.Unmarshal([]byte(configFile), &configuration)
+	err2 := json.Unmarshal(configFile, &configuration)
+	check(err2)
 	// TODO Remove this log
-	fmt.Println("Configuration loaded: " + configuration.generationMethod + ", " +
-		configuration.seed)
+	fmt.Println("Configuration loaded: " + configuration.Method + ", " + configuration.Seed)
 	return configuration
 }
