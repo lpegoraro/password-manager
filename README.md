@@ -13,7 +13,7 @@ go build
 ## Usage
 
 ```bash
-$ password-manager -h
+$ password-manager
 Password Manager in Go version 0.0.1
 Usage: `password_manager {COMMANDS} {OPTIONS}`
  The command list is the below
