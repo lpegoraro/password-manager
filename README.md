@@ -1,17 +1,19 @@
 # Password Manager
+
 [![Build Status](https://travis-ci.com/lpegoraro/password-manager.svg?branch=master)](https://travis-ci.com/lpegoraro/password-manager)
 
-POC created to test and enhance Go skills 
-
+POC created to test and enhance Go skills
 
 ## Getting started
 
 ```bash
-$ go build
+go build
 ```
 
 ## Usage
+
 ```bash
+$ password-manager
 Password Manager in Go version 0.0.1
 Usage: `password_manager {COMMANDS} {OPTIONS}`
  The command list is the below
@@ -23,7 +25,8 @@ Usage: `password_manager {COMMANDS} {OPTIONS}`
 ```
 
 ## TODO
- - Create passwords in dictionaries with login and tags to know from where this is from
- - Store in several configurable ways (configuration and multi-package implementation)
- - Support most common types of encryption
- - Provide safe web service 
+
+- Create passwords in dictionaries with login and tags to know from where this is from
+- Store in several configurable ways (configuration and multi-package implementation)
+- Support most common types of encryption
+- Provide safe web service in API

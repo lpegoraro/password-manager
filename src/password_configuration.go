@@ -5,14 +5,13 @@ import (
 	"fmt"
 	"io/ioutil"
 	"path/filepath"
-	"strings"
 )
 
 var COMMENDATION = "It is highly recommended to change the default by creating a config file, please run password_manager config"
 
 func GetCurrentConfiguration() PasswordConfiguration {
 	fileConfiguration := LoadFromFile()
-	if fileConfiguration.generationMethod == "" {
+	if fileConfiguration.Method == "" {
 		fmt.Println(COMMENDATION)
 		return GetDefaultConfig()
 	}
@@ -20,12 +19,11 @@ func GetCurrentConfiguration() PasswordConfiguration {
 }
 
 func GetDefaultConfig() PasswordConfiguration {
-	return PasswordConfiguration{
-		generationMethod: "uuid",
-		seed:             "pwd_manager_test",
-		strengthFactor:   5,
+	return PasswordConfiguration {
+		Method: "uuid",
+		Seed:   "pwd_manager_test",
+		Factor: 5,
 	}
-
 }
 
 func check(e error) {
@@ -35,10 +33,13 @@ func check(e error) {
 }
 
 func LoadFromFile() PasswordConfiguration {
-	configFile := FindFile("./config/", strings.Split("password_config.json,", ","))
+	configFile, err := ioutil.ReadFile("./config/password_configuration.json")
+	check(err)
 	configuration := PasswordConfiguration{}
-	_ = json.Unmarshal([]byte(configFile), &configuration)
-	fmt.Println(configuration.generationMethod)
+	err2 := json.Unmarshal(configFile, &configuration)
+	check(err2)
+	// TODO Remove this log
+	fmt.Println("Configuration loaded: " + configuration.Method + ", " + configuration.Seed)
 	return configuration
 }
 

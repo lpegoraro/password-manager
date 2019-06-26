@@ -116,13 +116,6 @@ func save(description string, username string, password string) {
 
 }
 
-func GetConfiguration(description string, username string) PasswordConfiguration {
-	return PasswordConfiguration{
-		generationMethod: "uuid",
-		seed:             "lPegz_password_manager_in_go",
-		strengthFactor:   4,
-	}
-}
 func GetPassword(description, username string) string {
 	return ""
 }
