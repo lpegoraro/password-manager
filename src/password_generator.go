@@ -6,6 +6,7 @@ import (
 	"github.com/nu7hatch/gouuid"
 	"os"
 	"strings"
+	"time"
 )
 
 type PasswordConfiguration struct {
@@ -35,6 +36,7 @@ func getCert(passwordConfiguration PasswordConfiguration) string {
 }
 
 func getUuid(strengthFactor int8, pattern string) string {
+	entropy := pattern + time.Now().String()
 	if strengthFactor == 4 {
 		u4, err := uuid.NewV4()
 		if err != nil {
@@ -42,7 +44,7 @@ func getUuid(strengthFactor int8, pattern string) string {
 		}
 		return u4.String()
 	} else if strengthFactor == 5 {
-		u5, err := uuid.NewV5(uuid.NamespaceURL, []byte(pattern))
+		u5, err := uuid.NewV5(uuid.NamespaceURL, []byte(entropy))
 		if err != nil {
 			return ""
 		}
