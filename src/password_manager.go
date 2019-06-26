@@ -18,7 +18,7 @@ var ListOfCommands = "\n\thelp | -h: Prints this message\n" +
 	"\tversion | -v: Print the version of the app\n" +
 	"\tget | -g {DESCRIPTION} {USERNAME} {OPTIONS}: Copy the password to the clipboard, for more information use `password_manager get help\n" +
 	"\tadd | -a {DESCRIPTION} {USERNAME} {OPTIONS}: Add a new password entry, for more information use `password_manager add help\n" +
-	"\tconfig | -c {OPTIONS}: Configure encryption or password generation method\n"
+	"\tconfig | -c {uuid|cert|random|custom}: Configure encryption or password generation method\n"
 
 var HELP_COMMAND = ConfigArgument{
 	singleLetter: "-h",
@@ -90,11 +90,16 @@ func parseArgs(arguments []string) {
 	}
 }
 func handleConfig(arguments []string) {
-
+	
 }
 
 func handleAdd(arguments []string) {
-
+	description := arguments[1]
+	username := arguments[2]
+	configuration := GetCurrentConfiguration()
+	passwordGenerated := GeneratePassword(configuration)
+	save(description, username, passwordGenerated)
+	fmt.Println("Password Generated: " + passwordGenerated)
 }
 
 func handleGet(arguments []string) string {
@@ -102,17 +107,15 @@ func handleGet(arguments []string) string {
 	username := arguments[2]
 	savedPassword := GetPassword(description, username)
 	if savedPassword == "" {
-		savedPassword = GeneratePassword(GetConfiguration(description, username))
+		savedPassword = GeneratePassword(GetCurrentConfiguration())
 	}
 	return savedPassword
 }
-func GetConfiguration(description string, username string) PasswordConfiguration {
-	return PasswordConfiguration{
-		generationMethod: "uuid",
-		seed:             "lPegz_password_manager_in_go",
-		strengthFactor:   4,
-	}
+
+func save(description string, username string, password string) {
+
 }
+
 func GetPassword(description, username string) string {
 	return ""
 }
