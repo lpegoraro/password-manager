@@ -14,10 +14,12 @@ func GetCurrentConfiguration() PasswordConfiguration {
 }
 
 func GetDefaultConfig() PasswordConfiguration {
-	return PasswordConfiguration {
-		Method: "uuid",
-		Seed:   "pwd_manager_test",
-		Factor: 4,
+	return PasswordConfiguration{
+		Method:  "uuid",
+		Seed:    "pwd_manager_test",
+		Factor:  4,
+		Storage: "output",
+		Output:  true,
 	}
 }
 
@@ -29,7 +31,7 @@ func check(e error) {
 
 func LoadFromFile() PasswordConfiguration {
 	configFile, err := ioutil.ReadFile("./config/password_configuration.json")
-	if (err != nil) {
+	if err != nil {
 		fmt.Println(COMMENDATION)
 		return GetDefaultConfig()
 	}
@@ -42,18 +44,18 @@ func LoadFromFile() PasswordConfiguration {
 func FindFile(targetDir string, pattern []string) []byte {
 	foundPath := ""
 	for _, v := range pattern {
-			matches, err := filepath.Glob(targetDir + v)
-			check(err)
-			if err != nil {
-				fmt.Println(err)
-			}
+		matches, err := filepath.Glob(targetDir + v)
+		check(err)
+		if err != nil {
+			fmt.Println(err)
+		}
 
-			if len(matches) != 0 {
-				fmt.Println("Found : ", matches)
-				foundPath = matches[0]
-			}
+		if len(matches) != 0 {
+			fmt.Println("Found : ", matches)
+			foundPath = matches[0]
+		}
 	}
 	file, err := ioutil.ReadFile(foundPath)
 	check(err)
-	return file;
+	return file
 }

@@ -90,7 +90,7 @@ func parseArgs(arguments []string) {
 	}
 }
 func handleConfig(arguments []string) {
-	
+
 }
 
 func handleAdd(arguments []string) {
@@ -98,8 +98,7 @@ func handleAdd(arguments []string) {
 	username := arguments[2]
 	configuration := GetCurrentConfiguration()
 	passwordGenerated := GeneratePassword(configuration)
-	save(description, username, passwordGenerated)
-	fmt.Println("Password Generated: " + passwordGenerated)
+	save(description, username, configuration, passwordGenerated)
 }
 
 func handleGet(arguments []string) string {
@@ -110,10 +109,6 @@ func handleGet(arguments []string) string {
 		savedPassword = GeneratePassword(GetCurrentConfiguration())
 	}
 	return savedPassword
-}
-
-func save(description string, username string, password string) {
-
 }
 
 func GetPassword(description, username string) string {

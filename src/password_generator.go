@@ -3,16 +3,19 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/nu7hatch/gouuid"
 	"os"
 	"strings"
 	"time"
+
+	uuid "github.com/nu7hatch/gouuid"
 )
 
 type PasswordConfiguration struct {
-	Method string `json: "method"`
-	Seed   string `json: "seed"`
-	Factor int8   `json: "factor"`
+	Method  string `json: "method"`
+	Seed    string `json: "seed"`
+	Factor  int8   `json: "factor"`
+	Storage string `json: "storage"`
+	Output  bool   `json: "show_output"`
 }
 
 func GeneratePassword(passwordConfiguration PasswordConfiguration) string {
@@ -27,7 +30,7 @@ func GeneratePassword(passwordConfiguration PasswordConfiguration) string {
 		password, _ := reader.ReadString('\n')
 		password = strings.Replace(password, "\n", "", -1)
 		return password
-	default :
+	default:
 		return ""
 	}
 }
