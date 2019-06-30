@@ -2,19 +2,18 @@ package main
 
 import (
 	"fmt"
-	"storage"
 )
 
 func save(description string, username string, configuration PasswordConfiguration, password string) {
 	storageType := configuration.Storage
-	passwordStore := PasswordStore{
+	passwordStore := PasswordEntry{
 		Tag:      description,
 		Username: username,
 		Password: password,
 	}
 	switch storageType {
 	case "NOT_ENCRYPTED_FILE":
-		saveToFile(passwordStore, configuration.)
+		storage.saveToFile(passwordStore, configuration.)
 		break
 	case "OUTPUT":
 		configuration.Output = true

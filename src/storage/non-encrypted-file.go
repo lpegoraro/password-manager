@@ -1,11 +1,19 @@
 package storage
 
-type PasswordStore struct {
+type PasswordEntry struct {
 	Tag      string `json:"tag"`
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
 
-func saveToFile(passwordStore PasswordStore, filePath string) {
+type PasswordJsonStore struct {
+	key string `json:"tag"`
+	password PasswordEntry `json:"password"`
+}
+
+var storageFile = "~/.secure/.passwordmanager.json"
+
+
+func saveToFile(passwordEntry PasswordEntry, filePath string) {
 
 }
