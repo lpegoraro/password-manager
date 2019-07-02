@@ -2,9 +2,7 @@ package storage
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
-	"path/filepath"
 )
 
 type PasswordEntry struct {
@@ -13,16 +11,26 @@ type PasswordEntry struct {
 	Password string `json:"password"`
 }
 
-type PasswordJsonStore struct {
-	key string `json:"tag"`
-	password PasswordEntry `json:"password"`
+type StorePasswords struct {
+	storedPasswords []PasswordEntry
 }
 
 var STORAGE_FILE = "~/.secure/.passwordmanager.json"
 
-
 func saveToFile(passwordEntry PasswordEntry, filePath string) {
-	ioutil.
+	file, err := ioutil.ReadFile(STORAGE_FILE)
+	savedPasswords := []StorePasswords()
+	if err != nil {
+
+	}
+	err2 := json.Unmarshal(passwordFiles, &configuration)
+
+	data = []byte(passwordEntry)
+	err := ioutil.WriteFile(STORAGE_FILE, data, 0644)
+
+	if err != nil {
+		panic(err)
+	}
 }
 
 func findInFile(tag string) string {
