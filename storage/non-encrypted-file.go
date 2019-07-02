@@ -16,17 +16,18 @@ type StorePasswords struct {
 	StoredPasswords map[string]PasswordEntry `json:"storedPasswords"`
 }
 
-var STORAGE_FILE = "~/.secure/.passwordmanager.json"
+var STORAGE_FILE = "/home/lpegoraro/.secure/.passwordmanager.json"
 
-func saveToFile(passwordEntry PasswordEntry) {
+func SaveToFile(passwordEntry PasswordEntry) {
 	file, err := ioutil.ReadFile(STORAGE_FILE)
 	savedPasswords := StorePasswords{}
 	if err != nil {
 		savedPasswords.StoredPasswords = make(map[string]PasswordEntry)
-	}
-	err2 := json.Unmarshal(file, &savedPasswords)
-	if err2 != nil {
-		panic(err2)
+	} else {
+		err2 := json.Unmarshal(file, &savedPasswords)
+		if err2 != nil {
+			panic(err2)
+		}
 	}
 	passwordKey := passwordEntry.Tag + passwordEntry.Username
 	// append the new passwordEntry to savedPasswords
@@ -40,7 +41,7 @@ func saveToFile(passwordEntry PasswordEntry) {
 	}
 }
 
-func findInFile(tag string, username string) string {
+func FindInFile(tag string, username string) string {
 	file, err := ioutil.ReadFile(STORAGE_FILE)
 	if err != nil {
 		fmt.Println("404 - Password not found!")
@@ -53,8 +54,6 @@ func findInFile(tag string, username string) string {
 	}
 	for tagKey, passwordValue := range savedPasswords.StoredPasswords {
 		if tag == tagKey {
-			// TODO Remove this log
-			fmt.Println("Password found " + passwordValue.Password)
 			return passwordValue.Password
 		}
 	}

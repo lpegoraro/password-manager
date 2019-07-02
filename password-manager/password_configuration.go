@@ -30,9 +30,10 @@ func check(e error) {
 }
 
 func LoadFromFile() PasswordConfiguration {
-	configFile, err := ioutil.ReadFile("./config/password_configuration.json")
+	configFile, err := ioutil.ReadFile("/home/lpegoraro/.secure/config/password_configuration.json")
 	if err != nil {
 		fmt.Println(COMMENDATION)
+		fmt.Println(err)
 		return GetDefaultConfig()
 	}
 	configuration := PasswordConfiguration{}
