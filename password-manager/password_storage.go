@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	storage "storage"
 )
 
 func save(description string, username string, configuration PasswordConfiguration, password string) {
