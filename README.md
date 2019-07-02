@@ -7,7 +7,7 @@ POC created to test and enhance Go skills
 ## Getting started
 
 ```bash
-go build
+go build src/
 ```
 
 ## Usage
