@@ -1,8 +1,8 @@
 package storage
 
 import (
-	"fmt"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 )
 
@@ -16,7 +16,7 @@ type StorePasswords struct {
 	StoredPasswords map[string]PasswordEntry `json:"storedPasswords"`
 }
 
-var STORAGE_FILE = "/home/lpegoraro/.secure/.passwordmanager.json"
+var STORAGE_FILE = "~/.secure/.passwordmanager.json"
 
 func SaveToFile(passwordEntry PasswordEntry) {
 	file, err := ioutil.ReadFile(STORAGE_FILE)
@@ -45,7 +45,7 @@ func FindInFile(tag string, username string) string {
 	file, err := ioutil.ReadFile(STORAGE_FILE)
 	if err != nil {
 		fmt.Println("404 - Password not found!")
-		return "";
+		return ""
 	}
 	savedPasswords := StorePasswords{}
 	err2 := json.Unmarshal(file, &savedPasswords)
@@ -58,5 +58,5 @@ func FindInFile(tag string, username string) string {
 		}
 	}
 	fmt.Println("404 - Password not found!")
-	return "";
+	return ""
 }
