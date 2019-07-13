@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"os"
 )
 
 type PasswordEntry struct {
@@ -16,7 +17,7 @@ type StorePasswords struct {
 	StoredPasswords map[string]PasswordEntry `json:"storedPasswords"`
 }
 
-var STORAGE_FILE = "~/.secure/.passwordmanager.json"
+var STORAGE_FILE = os.Getenv("HOME") + "/.secure/.passwordmanager.json"
 
 func SaveToFile(passwordEntry PasswordEntry) {
 	file, err := ioutil.ReadFile(STORAGE_FILE)
