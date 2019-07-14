@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 )
 
@@ -30,7 +31,8 @@ func check(e error) {
 }
 
 func LoadFromFile() PasswordConfiguration {
-	configFile, err := ioutil.ReadFile("/home/lpegoraro/.secure/config/password_configuration.json")
+	homeDir := os.Getenv("HOME")
+	configFile, err := ioutil.ReadFile(homeDir + "/.secure/config/password_configuration.json")
 	if err != nil {
 		fmt.Println(COMMENDATION)
 		fmt.Println(err)
