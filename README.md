@@ -27,11 +27,16 @@ $ password-manager
 Password Manager in Go version 0.0.1
 Usage: `password_manager {COMMANDS} {OPTIONS}`
  The command list is the below
-        help | -h: Prints this message
-        version | -v: Print the version of the app
-        get | -g {DESCRIPTION} {USERNAME} {OPTIONS}: Copy the password to the clipboard, for more information use `password_manager get help
-        add | -a {DESCRIPTION} {USERNAME} {OPTIONS}: Add a new password entry, for more information use `password_manager add help
-        config | -c {OPTIONS}: Configure encryption or password generation method
+	help | -h: Prints this message
+	version | -v: Print the version of the app
+	get | -g {DESCRIPTION} {USERNAME} {OPTIONS}: Copy the password to the clipboard, for more information use `password_manager get help
+	add | -a {DESCRIPTION} {USERNAME} {OPTIONS}: Add a new password entry, for more information use `password_manager add help
+	config | -c {METHOD} {SEED} {FACTOR} {STORAGE_TYPE}: Configure encryption or password generation method
+	 | 	 "Method": Type of password, please choose from the following {uuid | cert | custom }
+	 | 	 "Seed": Any passfrase you would like
+	 | 	 "Factor": Given the Method uuid, you can choose between 4 and 5
+	 | 	 	   Given the Method cert you can choose the algorithym for the password creation
+	 | 	 "Storage Type": Type of password, please choose from the following {uuid | cert | custom }
 ```
 
 ## TODO
