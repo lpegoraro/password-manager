@@ -19,7 +19,7 @@ type StorePasswords struct {
 
 var STORAGE_FILE = os.Getenv("HOME") + "/.secure/.passwordmanager.json"
 
-func SaveToFile(passwordEntry PasswordEntry) {
+func SaveToFile(passwordEntry PasswordEntry, output bool) {
 	file, err := ioutil.ReadFile(STORAGE_FILE)
 	savedPasswords := StorePasswords{}
 	if err != nil {
@@ -34,7 +34,9 @@ func SaveToFile(passwordEntry PasswordEntry) {
 	// append the new passwordEntry to savedPasswords
 	savedPasswords.StoredPasswords[passwordKey] = passwordEntry
 	jsonSavedPasswords, err := json.Marshal(savedPasswords)
-	fmt.Println("Saved Passwords file " + string(jsonSavedPasswords))
+	if output {
+		fmt.Println("Saved Passwords file " + string(jsonSavedPasswords))
+	}
 	errorOnWriting := ioutil.WriteFile(STORAGE_FILE, jsonSavedPasswords, 0644)
 	if errorOnWriting != nil {
 		fmt.Println("Error on saving the file")
@@ -42,10 +44,10 @@ func SaveToFile(passwordEntry PasswordEntry) {
 	}
 }
 
-func FindInFile(tag string, username string) string {
+func FindInFile(tag string, username string, output bool) string {
 	file, err := ioutil.ReadFile(STORAGE_FILE)
 	if err != nil {
-		fmt.Println("404 - Password not found!")
+		fmt.Println("404 - File of Password not found!")
 		return ""
 	}
 	savedPasswords := StorePasswords{}
@@ -54,7 +56,7 @@ func FindInFile(tag string, username string) string {
 		panic(err2)
 	}
 	for tagKey, passwordValue := range savedPasswords.StoredPasswords {
-		if tag == tagKey {
+		if username+tag == tagKey {
 			return passwordValue.Password
 		}
 	}

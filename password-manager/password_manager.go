@@ -101,18 +101,20 @@ func handleAdd(arguments []string) {
 	save(description, username, configuration, passwordGenerated)
 }
 
-func handleGet(arguments []string) string {
+func handleGet(arguments []string) {
 	description := arguments[1]
 	username := arguments[2]
 	savedPassword := GetPassword(description, username)
 	if savedPassword == "" {
 		savedPassword = GeneratePassword(GetCurrentConfiguration())
 	}
-	return savedPassword
+	fmt.Println(savedPassword)
 }
 
-func GetPassword(description, username string) string {
-	return ""
+func GetPassword(description string, username string) string {
+	configuration := GetCurrentConfiguration()
+	gotPassword := get(description, username, configuration)
+	return gotPassword
 }
 
 func checkIfCommand(value string, command ConfigArgument) bool {

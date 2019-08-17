@@ -6,9 +6,19 @@ POC created to test and enhance Go skills
 
 ## Getting started
 
+For Development
+
 ```bash
-go build src/
+go build -a -o $GOPATH/bin/storage github.com/lpegoraro/password-manager/storage
+go build -a -o $GOPATH/bin/password-manager github.com/lpegoraro/password-manager/password-manager
 ```
+
+For usage
+
+```bash
+
+```
+
 
 ## Usage
 
