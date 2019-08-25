@@ -13,13 +13,6 @@ go build -a -o $GOPATH/bin/storage github.com/lpegoraro/password-manager/storage
 go build -a -o $GOPATH/bin/password-manager github.com/lpegoraro/password-manager/password-manager
 ```
 
-For usage
-
-```bash
-
-```
-
-
 ## Usage
 
 ```bash
