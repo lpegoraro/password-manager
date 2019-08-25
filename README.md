@@ -6,8 +6,11 @@ POC created to test and enhance Go skills
 
 ## Getting started
 
+ For Development
+
 ```bash
-go build src/
+go build -a -o $GOPATH/bin/storage github.com/lpegoraro/password-manager/storage
+go build -a -o $GOPATH/bin/password-manager github.com/lpegoraro/password-manager/password-manager
 ```
 
 ## Usage
@@ -26,7 +29,6 @@ Usage: `password_manager {COMMANDS} {OPTIONS}`
 
 ## TODO
 
-- Create passwords in dictionaries with login and tags to know from where this is from
 - Store in several configurable ways (configuration and multi-package implementation)
 - Support most common types of encryption
 - Provide safe web service in API
