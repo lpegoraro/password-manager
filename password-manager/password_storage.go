@@ -6,13 +6,9 @@ import (
 	"github.com/lpegoraro/password-manager/storage"
 )
 
-type Storage interface {
-	Save(description string, username string, password string)
-	Get(description string, username string) string
-}
-
-type StorageFactory interface {
-	GetStorage(storageType string) Storage
+func getStrategy(storageType string) StorageStrategy {
+	dfs := DefaultStorageFactory{}
+	return dfs.BuildStorage(storageType)
 }
 
 func save(description string, username string, configuration PasswordConfiguration, password string) {
@@ -22,15 +18,14 @@ func save(description string, username string, configuration PasswordConfigurati
 		Username: username,
 		Password: password,
 	}
-	switch storageType {
-	case "NOT_ENCRYPTED_FILE":
-		storage.Save(passwordStore, configuration.Output)
-		break
-	case "OUTPUT":
-		configuration.Output = true
-		break
-	}
+	getStrategy(storageType).Save(passwordStore, configuration.Output)
 	if configuration.Output {
 		fmt.Println("Password Generated: " + password)
 	}
+}
+
+func get(description string, username string, configuration PasswordConfiguration) string {
+	storageType := configuration.Storage
+	return getStrategy(storageType).Get(description, username, configuration.Output)
+
 }
