@@ -9,6 +9,8 @@ import (
 )
 
 var COMMENDATION = "It is highly recommended to change the default by creating a config file, please run password_manager config"
+var homeDir = os.Getenv("HOME")
+var CONFIG_FILE = homeDir + "/.secure/config/password_configuration.json"
 
 func GetCurrentConfiguration() PasswordConfiguration {
 	return LoadFromFile()
@@ -30,9 +32,30 @@ func check(e error) {
 	}
 }
 
+func CreateConfigFile(method string, seed string, factor int8, storageType string) {
+	configuration := PasswordConfiguration{
+		Method:  method,
+		Seed:    seed,
+		Factor:  factor,
+		Storage: storageType,
+		Output:  false,
+	}
+	configurationJson, err := json.Marshal(configuration)
+	fmt.Println(configurationJson)
+	if err != nil {
+		fmt.Println("Error on marshalling json")
+		panic(err)
+	}
+	errorOnWriting := ioutil.WriteFile(CONFIG_FILE, configurationJson, 0644)
+	fmt.Print("wrote file")
+	if errorOnWriting != nil {
+		fmt.Println("Error on saving the file")
+		panic(errorOnWriting)
+	}
+}
+
 func LoadFromFile() PasswordConfiguration {
-	homeDir := os.Getenv("HOME")
-	configFile, err := ioutil.ReadFile(homeDir + "/.secure/config/password_configuration.json")
+	configFile, err := ioutil.ReadFile(CONFIG_FILE)
 	if err != nil {
 		fmt.Println(COMMENDATION)
 		fmt.Println(err)

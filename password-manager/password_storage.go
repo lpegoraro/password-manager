@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/lpegoraro/password-manager/storage"
+	"github.com/lpegoraro/password-manager/storage" master
 )
 
 func save(description string, username string, configuration PasswordConfiguration, password string) {
@@ -24,5 +24,4 @@ func get(description string, username string, configuration PasswordConfiguratio
 	storageType := configuration.Storage
 	storageStrategy := storage.BuildStorage(storageType)
 	return storageStrategy.StorageGet(description, username, configuration.Output)
-
 }
