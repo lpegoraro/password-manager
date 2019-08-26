@@ -12,7 +12,7 @@ var STORAGE_FILE = os.Getenv("HOME") + "/.secure/.passwordmanager.json"
 type NotEncryptedFileStorageStrategy struct {
 }
 
-func (nefSS NotEncryptedFileStorageStrategy) Save(passwordEntry PasswordEntry, output bool) {
+func (nefSS NotEncryptedFileStorageStrategy) StorageSave(passwordEntry PasswordEntry, output bool) {
 	file, err := ioutil.ReadFile(STORAGE_FILE)
 	savedPasswords := StorePasswords{}
 	if err != nil {
@@ -37,7 +37,7 @@ func (nefSS NotEncryptedFileStorageStrategy) Save(passwordEntry PasswordEntry, o
 	}
 }
 
-func (nefSS NotEncryptedFileStorageStrategy) Get(tag string, username string, output bool) string {
+func (nefSS NotEncryptedFileStorageStrategy) StorageGet(tag string, username string, output bool) string {
 	file, err := ioutil.ReadFile(STORAGE_FILE)
 	if err != nil {
 		fmt.Println("404 - File of Password not found!")

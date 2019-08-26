@@ -11,13 +11,13 @@ type StorePasswords struct {
 }
 
 type StorageStrategy interface {
-	Save(passwordEntry PasswordEntry, output bool)
-	Get(tag string, username string, output bool) string
+	StorageSave(passwordEntry PasswordEntry, output bool)
+	StorageGet(tag string, username string, output bool) string
 }
 
-func GetStorage(storageType string) StorageStrategy {
+func BuildStorage(storageType string) StorageStrategy {
 	switch storageType {
-	case "NON_ENCRYPTED_FILE":
+	case "NOT_ENCRYPTED_FILE":
 		return NotEncryptedFileStorageStrategy{}
 	case "":
 		return NoSaveStrategy{}
