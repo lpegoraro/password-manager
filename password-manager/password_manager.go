@@ -104,7 +104,6 @@ func parseArgs(arguments []string) {
 	}
 }
 func handleConfig(arguments []string) {
-	fmt.Println("handleConfig with arguments" + arguments[1])
 	method := arguments[1]
 	seed := arguments[2]
 	factor, err := strconv.ParseInt(arguments[3], 10, 8)
@@ -112,7 +111,6 @@ func handleConfig(arguments []string) {
 		fmt.Println(err)
 	}
 	storageType := arguments[4]
-	fmt.Println("handleConfig with arguments" + method + seed + storageType)
 	CreateConfigFile(method, seed, int8(factor), storageType)
 }
 
