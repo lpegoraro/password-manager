@@ -49,7 +49,7 @@ func (nefSS NotEncryptedFileStorageStrategy) StorageGet(tag string, username str
 		panic(err2)
 	}
 	for tagKey, passwordValue := range savedPasswords.StoredPasswords {
-		if username+tag == tagKey {
+		if tag+username == tagKey {
 			return passwordValue.Password
 		}
 	}

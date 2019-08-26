@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/lpegoraro/password-manager/storage" master
+	"github.com/lpegoraro/password-manager/storage"
 )
 
 func save(description string, username string, configuration PasswordConfiguration, password string) {
