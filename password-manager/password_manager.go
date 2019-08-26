@@ -37,7 +37,7 @@ var HELP_COMMAND = ConfigArgument{
 var ABOUT = ConfigArgument{
 	singleLetter: "-v",
 	name:         "version",
-	description:  "Password Manager in Go version 0.0.1",
+	description:  "Password Manager in Go version 0.1.0",
 }
 
 func main() {
