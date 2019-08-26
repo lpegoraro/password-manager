@@ -24,7 +24,9 @@ var ListOfCommands = "\n\thelp | -h: Prints this message\n" +
 	"\t | \t \"Seed\": Any passfrase you would like\n" +
 	"\t | \t \"Factor\": Given the Method uuid, you can choose between 4 and 5\n" +
 	"\t | \t \t   Given the Method cert you can choose the algorithym for the password creation\n" +
-	"\t | \t \"Storage Type\": Type of password, please choose from the following {uuid | cert | custom }\n"
+	"\t | \t \"Storage Type\": Only supporting \"NOT_ENCRYPTED_FILE\" storage at the moment, you can choose \n" +
+	"\t | \t \t   You can choose output also, but you will need to manually configure in the settings since this \n" +
+	"\t | \t \tis a development feature only.\n"
 
 var HELP_COMMAND = ConfigArgument{
 	singleLetter: "-h",

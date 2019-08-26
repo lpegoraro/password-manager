@@ -21,7 +21,7 @@ go get github.com/lpegoraro/password-manager/password-manager
 
 ```bash
 $ password-manager
-Password Manager in Go version 0.0.1
+Password Manager in Go version 0.1.0
 Usage: `password_manager {COMMANDS} {OPTIONS}`
  The command list is the below
 	help | -h: Prints this message
@@ -33,7 +33,9 @@ Usage: `password_manager {COMMANDS} {OPTIONS}`
 	 | 	 "Seed": Any passfrase you would like
 	 | 	 "Factor": Given the Method uuid, you can choose between 4 and 5
 	 | 	 	   Given the Method cert you can choose the algorithym for the password creation
-	 | 	 "Storage Type": Type of password, please choose from the following {uuid | cert | custom }
+	 | 	 "Storage Type": Only supporting "NOT_ENCRYPTED_FILE" storage at the moment, you can choose 
+	 | 	 	   You can choose output also, but you will need to manually configure in the settings since this 
+	 | 	 	is a development feature only.
 ```
 
 ## TODO
