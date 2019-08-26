@@ -7,19 +7,12 @@ import (
 	"os"
 )
 
-type PasswordEntry struct {
-	Tag      string `json:"tag"`
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-
-type StorePasswords struct {
-	StoredPasswords map[string]PasswordEntry `json:"storedPasswords"`
-}
-
 var STORAGE_FILE = os.Getenv("HOME") + "/.secure/.passwordmanager.json"
 
-func SaveToFile(passwordEntry PasswordEntry, output bool) {
+type NotEncryptedFileStorageStrategy struct {
+}
+
+func (nefSS NotEncryptedFileStorageStrategy) StorageSave(passwordEntry PasswordEntry, output bool) {
 	file, err := ioutil.ReadFile(STORAGE_FILE)
 	savedPasswords := StorePasswords{}
 	if err != nil {
@@ -44,7 +37,7 @@ func SaveToFile(passwordEntry PasswordEntry, output bool) {
 	}
 }
 
-func FindInFile(tag string, username string, output bool) string {
+func (nefSS NotEncryptedFileStorageStrategy) StorageGet(tag string, username string, output bool) string {
 	file, err := ioutil.ReadFile(STORAGE_FILE)
 	if err != nil {
 		fmt.Println("404 - File of Password not found!")
@@ -56,7 +49,7 @@ func FindInFile(tag string, username string, output bool) string {
 		panic(err2)
 	}
 	for tagKey, passwordValue := range savedPasswords.StoredPasswords {
-		if username+tag == tagKey {
+		if tag+username == tagKey {
 			return passwordValue.Password
 		}
 	}

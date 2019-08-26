@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	storage "github.com/lpegoraro/password-manager/storage"
+	"github.com/lpegoraro/password-manager/storage"
 )
 
 func save(description string, username string, configuration PasswordConfiguration, password string) {
@@ -13,14 +13,8 @@ func save(description string, username string, configuration PasswordConfigurati
 		Username: username,
 		Password: password,
 	}
-	switch storageType {
-	case "NOT_ENCRYPTED_FILE":
-		storage.SaveToFile(passwordStore, configuration.Output)
-		break
-	case "OUTPUT":
-		configuration.Output = true
-		break
-	}
+	storageStrategy := storage.BuildStorage(storageType)
+	storageStrategy.StorageSave(passwordStore, configuration.Output)
 	if configuration.Output {
 		fmt.Println("Password Generated: " + password)
 	}
@@ -28,9 +22,6 @@ func save(description string, username string, configuration PasswordConfigurati
 
 func get(description string, username string, configuration PasswordConfiguration) string {
 	storageType := configuration.Storage
-	switch storageType {
-	case "NOT_ENCRYPTED_FILE":
-		return storage.FindInFile(description, username, configuration.Output)
-	}
-	return "not found"
+	storageStrategy := storage.BuildStorage(storageType)
+	return storageStrategy.StorageGet(description, username, configuration.Output)
 }

@@ -125,7 +125,7 @@ func handleGet(arguments []string) {
 	username := arguments[2]
 	savedPassword := GetPassword(description, username)
 	if savedPassword == "" {
-		savedPassword = GeneratePassword(GetCurrentConfiguration())
+		fmt.Println("Failed to fetch password")
 	}
 	fmt.Println(savedPassword)
 }

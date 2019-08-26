@@ -34,5 +34,6 @@ Usage: `password_manager {COMMANDS} {OPTIONS}`
 
 ## TODO
 
+- Store in several configurable ways (configuration and multi-package implementation)
 - Support most common types of encryption and more password generation methods
 - Provide safe web service in API
