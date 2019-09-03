@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+service PasswordManager {
+    rpc Add(AddPasswordReq) returns (PasswordValue);
+    rpc Get(GetPasswordReq) returns (PasswordValue);
+}
+
+message AddPasswordReq {
+    string tag = 1;
+    string username = 2;
+    Configuration overrideConfiguration = 3;
+}
+
+message Configuration {
+    string method = 1;
+    string seed = 2;
+    int32 factor = 3;
+    string storage = 4;
+    bool output = 5;
+}
+
+message GetPasswordReq {
+    string tag = 1;
+    string username = 2;
+}
+
+message PasswordValue {
+    string password = 1;
+}
