@@ -32,7 +32,7 @@ func check(e error) {
 	}
 }
 
-func CreateConfigFile(method string, seed string, factor int8, storageType string) {
+func CreateConfigFile(method string, seed string, factor int32, storageType string) {
 	configuration := PasswordConfiguration{
 		Method:  method,
 		Seed:    seed,
