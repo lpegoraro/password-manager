@@ -111,7 +111,7 @@ func handleConfig(arguments []string) {
 		fmt.Println(err)
 	}
 	storageType := arguments[4]
-	CreateConfigFile(method, seed, int8(factor), storageType)
+	CreateConfigFile(method, seed, int32(factor), storageType)
 }
 
 func handleAdd(arguments []string) {
