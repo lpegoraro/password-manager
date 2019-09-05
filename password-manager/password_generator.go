@@ -13,7 +13,7 @@ import (
 type PasswordConfiguration struct {
 	Method  string `json: "method"`
 	Seed    string `json: "seed"`
-	Factor  int8   `json: "factor"`
+	Factor  int32  `json: "factor"`
 	Storage string `json: "storage"`
 	Output  bool   `json: "show_output"`
 }
@@ -39,7 +39,7 @@ func getCert(passwordConfiguration PasswordConfiguration) string {
 	return ""
 }
 
-func getUuid(Factor int8, pattern string) string {
+func getUuid(Factor int32, pattern string) string {
 	entropy := pattern + time.Now().String()
 	if Factor == 4 {
 		u4, err := uuid.NewV4()

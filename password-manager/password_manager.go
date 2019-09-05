@@ -111,15 +111,13 @@ func handleConfig(arguments []string) {
 		fmt.Println(err)
 	}
 	storageType := arguments[4]
-	CreateConfigFile(method, seed, int8(factor), storageType)
+	CreateConfigFile(method, seed, int32(factor), storageType)
 }
 
 func handleAdd(arguments []string) {
 	description := arguments[1]
 	username := arguments[2]
-	configuration := GetCurrentConfiguration()
-	passwordGenerated := GeneratePassword(configuration)
-	save(description, username, configuration, passwordGenerated)
+	AddPassword(description, username, PasswordConfiguration{})
 }
 
 func handleGet(arguments []string) {
@@ -130,6 +128,18 @@ func handleGet(arguments []string) {
 		fmt.Println("Failed to fetch password")
 	}
 	fmt.Println(savedPassword)
+}
+
+func AddPassword(description, username string, overrideConfig PasswordConfiguration) string {
+	var configuration = PasswordConfiguration{}
+	if (PasswordConfiguration{}) == overrideConfig {
+		configuration = GetCurrentConfiguration()
+	} else {
+		configuration = overrideConfig
+	}
+	passwordGenerated := GeneratePassword(configuration)
+	save(description, username, configuration, passwordGenerated)
+	return passwordGenerated
 }
 
 func GetPassword(description string, username string) string {
