@@ -17,6 +17,11 @@ For Usage
 go get github.com/lpegoraro/password-manager/password-manager
 ```
 
+Using Docker
+```bash
+sudo docker run --rm -v "$PWD":/go/src/github.com/lpegoraro/password-manager -w /go/src/github.com/lpegoraro/password-manager golang:latest  go build -a -o $GOPATH/bin/password-manager ./password-manager/ && sudo docker build -t $USERNAME/$IMAGE:latest .
+```
+
 ## Usage
 
 ```bash
