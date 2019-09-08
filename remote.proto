@@ -6,7 +6,7 @@ service PasswordManager {
 }
 
 service AddTenant {
-    rpc ConnectToTenant(AddTenantReq) returns (TenantValue)
+    rpc ConnectToTenant(AddTenantReq) returns (TenantValue);
 }
 
 message AddPasswordReq {
