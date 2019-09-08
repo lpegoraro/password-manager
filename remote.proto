@@ -5,6 +5,10 @@ service PasswordManager {
     rpc Get(GetPasswordReq) returns (PasswordValue);
 }
 
+service AddTenant {
+    rpc ConnectToTenant(AddTenantReq) returns (TenantValue)
+}
+
 message AddPasswordReq {
     string tag = 1;
     string username = 2;
@@ -26,4 +30,16 @@ message GetPasswordReq {
 
 message PasswordValue {
     string password = 1;
+    string fingerprint = 2;
+}
+
+message AddTenantReq {
+    string pubKey = 1;
+    string tenantName = 2;
+    Configuration initialConfiguration = 3;
+}
+
+message TenantValue {
+    string port = 1;
+    string fingerprint = 2;
 }

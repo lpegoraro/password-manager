@@ -6,11 +6,6 @@ import (
 	"strconv"
 )
 
-type KeySecret struct {
-	description, username string
-	tags                  []string
-}
-
 type ConfigArgument struct {
 	singleLetter, name, description string
 }
