@@ -55,10 +55,17 @@ var ADD_COMMAND = ConfigArgument{
 	singleLetter: "-a",
 	name:         "add",
 	description: "Add a new password entry\n" +
-		"Options:\n" +
-		"\thelp: Print this help\n" +
-		"\tverbose: Print the password in the console after setting, not only copy to clipboard\n" +
+		":\n" +
 		"\t",
+}
+
+var SERVE_COMMAND = ConfigArgument{
+	singleLetter: "-s",
+	name:         "serve",
+	description: "Serves a new tenant for managing your passwords\n" +
+		"Options:\n" +
+		"\tserve | -s {TENANT} {PUBLIC_KEY}: Returns connection instructions, to connect and serve,\n"
+		 "\t | \tthe server will remain up for 5 minutes\n"
 }
 
 var CONFIG_COMMAND = ConfigArgument{
@@ -90,6 +97,8 @@ func parseArgs(arguments []string) {
 			handleAdd(arguments)
 		} else if checkIfCommand(value, CONFIG_COMMAND) {
 			handleConfig(arguments)
+		} else if checkIfCommand(value, SERVE_COMMAND) {
+			handleServe(arguments)
 		}
 	}
 	if len(arguments) == 0 {
@@ -123,6 +132,12 @@ func handleGet(arguments []string) {
 		fmt.Println("Failed to fetch password")
 	}
 	fmt.Println(savedPassword)
+}
+
+func handleServe(arguments []string) {
+	tenantName := arguments[1]
+	publicKey := arguments[2]
+	
 }
 
 func AddPassword(description, username string, overrideConfig PasswordConfiguration) string {
