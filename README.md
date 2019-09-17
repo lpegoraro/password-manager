@@ -1,6 +1,7 @@
 # Password Manager
 
-[![Build Status](https://travis-ci.com/lpegoraro/password-manager.svg?branch=master)](https://travis-ci.com/lpegoraro/password-manager) [![Join the chat at https://gitter.im/password-manager-go/community](https://badges.gitter.im/password-manager-go/community.svg)](https://gitter.im/password-manager-go/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.com/lpegoraro/password-manager.svg?branch=master)](https://travis-ci.com/lpegoraro/password-manager)
+[![Join the chat at https://gitter.im/password-manager-go/community](https://badges.gitter.im/password-manager-go/community.svg)](https://gitter.im/password-manager-go/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 POC created to test and enhance Go skills
 
@@ -13,11 +14,13 @@ go build -a -o $GOPATH/bin/password-manager github.com/lpegoraro/password-manage
 ```
 
 For Usage
+
 ```bash
 go get github.com/lpegoraro/password-manager/password-manager
 ```
 
 Using Docker
+
 ```bash
 cd password-manager
 sudo docker run --rm -v "$PWD":/go/src/github.com/lpegoraro/password-manager -w /go/src/github.com/lpegoraro/password-manager golang:latest  go build -a -o $GOPATH/bin/password-manager ./password-manager/ && sudo docker build -t lpegoraro/password-manager:latest .
@@ -39,13 +42,14 @@ Usage: `password_manager {COMMANDS} {OPTIONS}`
 	 | 	 "Seed": Any passfrase you would like
 	 | 	 "Factor": Given the Method uuid, you can choose between 4 and 5
 	 | 	 	   Given the Method cert you can choose the algorithym for the password creation
-	 | 	 "Storage Type": Only supporting "NOT_ENCRYPTED_FILE" storage at the moment, you can choose 
-	 | 	 	   You can choose output also, but you will need to manually configure in the settings since this 
+	 | 	 "Storage Type": Only supporting "NOT_ENCRYPTED_FILE" storage at the moment, you can choose
+	 | 	 	   You can choose output also, but you will need to manually configure in the settings since this
 	 | 	 	is a development feature only.
 ```
 
 ## TODO
 
-- Store in several configurable ways (configuration and multi-package implementation)
+- Store in several configurable ways (configuration and multi-package
+  implementation)
 - Support most common types of encryption and more password generation methods
 - Provide safe web service in API
