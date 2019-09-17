@@ -64,7 +64,7 @@ var SERVE_COMMAND = ConfigArgument{
 	name:         "serve",
 	description: "Serves a new tenant for managing your passwords\n" +
 		"Options:\n" +
-		"\tserve | -s {TENANT} {PUBLIC_KEY}: Returns connection instructions, to connect and serve,\n"
+		"\tserve | -s {TENANT} {PUBLIC_KEY}: Returns connection instructions, to connect and serve,\n" +
 		 "\t | \tthe server will remain up for 5 minutes\n"
 }
 
