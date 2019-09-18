@@ -65,7 +65,7 @@ var SERVE_COMMAND = ConfigArgument{
 	description: "Serves a new tenant for managing your passwords\n" +
 		"Options:\n" +
 		"\tserve | -s {TENANT} {PUBLIC_KEY}: Returns connection instructions, to connect and serve,\n" +
-		 "\t | \tthe server will remain up for 5 minutes\n"
+		"\t | \tthe server will remain up for 5 minutes\n",
 }
 
 var CONFIG_COMMAND = ConfigArgument{
@@ -137,7 +137,7 @@ func handleGet(arguments []string) {
 func handleServe(arguments []string) {
 	tenantName := arguments[1]
 	publicKey := arguments[2]
-	
+
 }
 
 func AddPassword(description, username string, overrideConfig PasswordConfiguration) string {
