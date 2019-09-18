@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+
+	"github.com/lpegoraro/password-manager/remote"
 )
 
 type ConfigArgument struct {
