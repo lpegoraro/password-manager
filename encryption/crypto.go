@@ -26,6 +26,7 @@ type DefaultCrytoHelper struct {
 	publicKey     rsa.PublicKey
 	signingMethod SigningMethodRSA
 	Hash          crypto.Hash
+	PemCert       string
 }
 
 func (dch DefaultCrytoHelper) DecryptMessage(cryptoData string) (string, error) {

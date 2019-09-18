@@ -137,7 +137,7 @@ func handleGet(arguments []string) {
 func handleServe(arguments []string) {
 	tenantName := arguments[1]
 	publicKey := arguments[2]
-
+	remote.ServeNewTenant(tenantName, publicKey)
 }
 
 func AddPassword(description, username string, overrideConfig PasswordConfiguration) string {
