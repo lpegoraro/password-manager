@@ -5,4 +5,4 @@ dist: trusty
 sudo: false
 install: true
 script:
-  - env GO111MODULE=on go build -a github.com/lpegoraro/password-manager/password-manager
+  - env GO111MODULE=on go build -a -o /bin/password-manager github.com/lpegoraro/password-manager/password-manager
