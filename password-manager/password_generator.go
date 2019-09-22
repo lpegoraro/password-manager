@@ -11,11 +11,11 @@ import (
 )
 
 type PasswordConfiguration struct {
-	Method  string `json: "method"`
-	Seed    string `json: "seed"`
-	Factor  int32  `json: "factor"`
-	Storage string `json: "storage"`
-	Output  bool   `json: "show_output"`
+	Method  string `json: "method,omitempty"`
+	Seed    string `json: "seed,omitempty"`
+	Factor  int32  `json: "factor,omitempty"`
+	Storage string `json: "storage,omitempty"`
+	Output  bool   `json: "show_output,omitempty"`
 }
 
 func GeneratePassword(passwordConfiguration PasswordConfiguration) string {

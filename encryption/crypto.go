@@ -3,6 +3,8 @@ package encryption
 import (
 	"crypto"
 	"crypto/rsa"
+	"crypto/x509"
+	"encoding/pem"
 )
 
 type CryptoHelper interface {
@@ -23,10 +25,18 @@ var (
 )
 
 type DefaultCrytoHelper struct {
-	publicKey     rsa.PublicKey
+	publicKey     *rsa.PublicKey
 	signingMethod SigningMethodRSA
 	Hash          crypto.Hash
 	PemCert       string
+}
+
+func (dch DefaultCrytoHelper) convertPublicKey() {
+	block, _ := pem.Decode([]byte(dch.PemCert))
+	var cert *x509.Certificate
+	cert, _ = x509.ParseCertificate(block.Bytes)
+	rsaPublicKey := cert.PublicKey.(*rsa.PublicKey)
+	dch.publicKey = rsaPublicKey
 }
 
 func (dch DefaultCrytoHelper) DecryptMessage(cryptoData string) (string, error) {
