@@ -28,6 +28,7 @@ func (*DefaultPasswordManagerServer) Add(ctx context.Context, req *remote.AddPas
 }
 
 func (*DefaultPasswordManagerServer) Get(ctx context.Context, req *remote.GetPasswordReq) (*remote.PasswordValue, error) {
+
 	password := GetPassword(req.Tag, req.Username)
 	return &remote.PasswordValue{
 		Password: password,

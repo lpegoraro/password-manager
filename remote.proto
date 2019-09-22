@@ -26,6 +26,7 @@ message Configuration {
 message GetPasswordReq {
     string tag = 1;
     string username = 2;
+    string fingerprint = 3;
 }
 
 message PasswordValue {
