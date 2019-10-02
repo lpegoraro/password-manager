@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"strconv"
@@ -86,7 +87,7 @@ var CONFIG_COMMAND = ConfigArgument{
 		"\t | \t \tis a development feature only.\n",
 }
 
-func parseArgs(arguments []string) {
+func parseArgs(arguments []string) error {
 	for index := 0; index < len(arguments); index++ {
 		value := arguments[index]
 		if checkIfCommand(value, HELP_COMMAND) {
@@ -106,8 +107,9 @@ func parseArgs(arguments []string) {
 	if len(arguments) == 0 {
 		fmt.Println(ABOUT.description)
 		fmt.Println(HELP_COMMAND.description)
-
+		return errors.New("No argument found")
 	}
+	return nil
 }
 func handleConfig(arguments []string) {
 	method := arguments[1]
