@@ -10,4 +10,7 @@ sudo: false
 install: true
 script:
   - go build -a -o $GOPATH/bin/password-manager github.com/lpegoraro/password-manager/password-manager
-  - go test ./...
+  - go test -coverprofile=coverage.out -covermode=atomic ./...
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
