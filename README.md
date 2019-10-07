@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/lpegoraro/password-manager.svg?branch=master)](https://travis-ci.com/lpegoraro/password-manager)
 [![Join the chat at https://gitter.im/password-manager-go/community](https://badges.gitter.im/password-manager-go/community.svg)](https://gitter.im/password-manager-go/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![codecov](https://codecov.io/gh/lpegoraro/password-manager/branch/master/graph/badge.svg)](https://codecov.io/gh/lpegoraro/password-manager)
 
 POC created to test and enhance Go skills
 
