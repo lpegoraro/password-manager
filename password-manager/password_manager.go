@@ -88,26 +88,33 @@ var CONFIG_COMMAND = ConfigArgument{
 }
 
 func parseArgs(arguments []string) error {
+	command := ""
 	for index := 0; index < len(arguments); index++ {
 		value := arguments[index]
 		if checkIfCommand(value, HELP_COMMAND) {
+			command = "help"
 			fmt.Println(HELP_COMMAND.description)
 		} else if checkIfCommand(value, ABOUT) {
+			command = "about"
 			fmt.Println(ABOUT.description)
 		} else if checkIfCommand(value, GET_COMMAND) {
+			command = "get"
 			handleGet(arguments)
 		} else if checkIfCommand(value, ADD_COMMAND) {
+			command = "get"
 			handleAdd(arguments)
 		} else if checkIfCommand(value, CONFIG_COMMAND) {
+			command = "config"
 			handleConfig(arguments)
 		} else if checkIfCommand(value, SERVE_COMMAND) {
+			command = "serve"
 			handleServe(arguments)
 		}
 	}
-	if len(arguments) == 0 {
+	if len(arguments) == 0 || command == "" {
 		fmt.Println(ABOUT.description)
 		fmt.Println(HELP_COMMAND.description)
-		return errors.New("No argument found")
+		return errors.New("No valid argument found")
 	}
 	return nil
 }

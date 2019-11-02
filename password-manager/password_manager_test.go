@@ -28,18 +28,18 @@ func TestParseArgsNoArg(t *testing.T) {
 	invalidArg := []string{}
 	err := parseArgs(invalidArg)
 	if assert.Error(t, err) {
-		assert.Contains(t, err.Error(), "No argument found")
+		assert.Contains(t, err.Error(), "No valid argument found")
 	}
 }
 
 // // TestParseArgsFail pass invalid argument to parseArgs function
-// func TestParseArgsFail(t *testing.T) {
-// 	invalidArg := []string{"-x"}
-// 	err := parseArgs(invalidArg)
-// 	if assert.Error(t, err) {
-// 		assert.Contains(t, err.Error(), "Invalid argument found")
-// 	}
-// }
+func TestParseArgsFail(t *testing.T) {
+	invalidArg := []string{"-x"}
+	err := parseArgs(invalidArg)
+	if assert.Error(t, err) {
+		assert.Contains(t, err.Error(), "No valid argument found")
+	}
+}
 
 // TestParsArgsMultiple valid argument passed to function and config file
 // will be created
