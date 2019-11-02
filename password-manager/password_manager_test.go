@@ -82,3 +82,21 @@ func TestParseArgsHandleAdd(t *testing.T) {
 
 	}
 }
+
+func TestParseArgsHandleGet(t *testing.T) {
+	argConfig := []string{"-c", "uuid", "'passphrase'", "4", "NOT_ENCRYPTED_FILE"}
+	if assert.NoError(t, parseArgs(argConfig)) {
+		// create configuration file
+		if assert.FileExists(t, CONFIG_FILE) {
+			// TODO check if there is correct configuration
+		}
+	}
+	argAdd := []string{"-a", "this", "newPhrase"}
+	if assert.NoError(t, parseArgs(argAdd)) {
+
+	}
+	argGet := []string{"-g", "this", "newPhrase"}
+	if assert.NoError(t, parseArgs(argGet)) {
+
+	}
+}
