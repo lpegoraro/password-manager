@@ -1,0 +1,15 @@
+merge:
+  whitelist:
+    # a PR must have these labels set
+    labels: ["automerge"]
+  blacklist:
+    # a PR may not have these labels set
+    labels: ["wip", "do not merge"]
+  # merge method, see https://help.github.com/en/articles/about-merge-methods-on-github
+  # one of: merge, squash, rebase
+  method: merge
+  # status checks required in addition to the ones defined in GitHub Branch Protection Rules
+  required_statuses:
+    - "checks"
+    - "approved"
+  delete_after_merge: true
