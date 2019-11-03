@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"strings"
 	"time"
@@ -25,14 +26,18 @@ func GeneratePassword(passwordConfiguration PasswordConfiguration) string {
 	case "cert":
 		return getCert(passwordConfiguration)
 	case "custom":
-		reader := bufio.NewReader(os.Stdin)
-		fmt.Println("Insert the password you want:")
-		password, _ := reader.ReadString('\n')
-		password = strings.Replace(password, "\n", "", -1)
-		return password
+		return readPassword(os.Stdin)
 	default:
 		return ""
 	}
+}
+
+func readPassword(in io.Reader) string {
+	reader := bufio.NewReader(in)
+	fmt.Println("Insert the password you want:")
+	password, _ := reader.ReadString('\n')
+	password = strings.Replace(password, "\n", "", -1)
+	return password
 }
 
 func getCert(passwordConfiguration PasswordConfiguration) string {
