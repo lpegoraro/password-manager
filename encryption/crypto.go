@@ -2,6 +2,7 @@ package encryption
 
 import (
 	"crypto"
+	"crypto/md5"
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/pem"
@@ -9,8 +10,8 @@ import (
 
 type CryptoHelper interface {
 	Register(signingMethod string) SigningMethodRSA
-	DecryptMessage(crytoData string) (string, error)
-	EncodeFingerprint(dataToEncode string) (string, error)
+	DecryptMessage(crytoData []byte) (string, error)
+	EncodeFingerprint(dataToEncode string) ([16]byte, error)
 }
 
 type SigningMethodRSA struct {
@@ -44,9 +45,8 @@ func (dch DefaultCrytoHelper) DecryptMessage(cryptoData string) (string, error) 
 	return "", nil
 }
 
-func (dch DefaultCrytoHelper) EncodeFingerprint(dataToEncode string) (string, error) {
-
-	return "", nil
+func (dch DefaultCrytoHelper) EncodeFingerprint(dataToEncode string) ([16]byte, error) {
+	return md5.Sum([]byte(dataToEncode)), nil
 }
 
 func (dch DefaultCrytoHelper) Register(signingMethod string) (*SigningMethodRSA, error) {
