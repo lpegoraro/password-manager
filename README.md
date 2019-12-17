@@ -48,6 +48,46 @@ Usage: `password_manager {COMMANDS} {OPTIONS}`
 	 | 	 	is a development feature only.
 ```
 
+
+
+## Serving
+
+These are the diagrams exemplifying the flow to connect:
+
+Preparation
+```sequence
+Tenant->PwdMngr: Upload PEM Key
+PwdMngr->Tenant: Fingerprint
+Tenant->PwdMngr: Request for Serve with Fingerprint
+PwdMngr->Tenant: Port to connect
+```
+
+Serving
+```flow
+st=>start: Tenant sends Request for Serve with given Fingerprint
+publickey=>operation: From Tenant Name retrieve key
+storage=>operation: Create configuration and storage, adding key for encryption
+
+st->publickey->storage
+```
+
+Add/Get Password Flow
+
+```flow
+st=>start: Tenant requests Add Password
+conf=>operation: Retrieve configuration
+command=>operation: Send command to PwdManager
+bundle=>operation: Assemble response and encrypt from given public Key
+respond=>operation: Sends encrypted Response
+
+
+st->conf->command->bundle->respond
+```
+
+
+
+
+
 ## TODO
 
 - Store in several configurable ways (configuration and multi-package

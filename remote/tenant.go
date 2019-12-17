@@ -3,6 +3,7 @@ package remote
 import (
 	context "context"
 	fmt "fmt"
+	"net"
 
 	"github.com/lpegoraro/password-manager/encryption"
 )
@@ -19,6 +20,7 @@ func (dtc *DefaultTenantClient) Connect(ctx context.Context, req *AddTenantReq) 
 }
 
 func ServeNewTenant(tenantName string, publicKey string) *TenantValue {
+	fmt.Println("Serving to: " + tenantName + ", " + publicKey)
 	var newTenant = DefaultTenantClient{
 		TenantKey:  tenantName,
 		TenantPort: GetUnusedPort(),
@@ -30,7 +32,7 @@ func ServeNewTenant(tenantName string, publicKey string) *TenantValue {
 	if err != nil {
 		panic("Error generating fingerprint, please check the public key")
 	}
-	go serve(newTenant)
+	serve(newTenant)
 
 	return &TenantValue{
 		Port:        newTenant.TenantPort,
@@ -39,7 +41,13 @@ func ServeNewTenant(tenantName string, publicKey string) *TenantValue {
 }
 
 func serve(tenant DefaultTenantClient) {
-	fmt.Println("Serving new client")
+	ln, err := net.Listen("tcp", ":7894")
+	if err != nil {
+		fmt.Println("Error while Listening: ", err)
+	}
+	if ln != nil {
+		fmt.Println("Success Listening to port 7894")
+	}
 	select {}
 }
 
