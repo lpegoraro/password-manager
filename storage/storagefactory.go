@@ -19,6 +19,8 @@ func BuildStorage(storageType string) StorageStrategy {
 	switch storageType {
 	case "NOT_ENCRYPTED_FILE":
 		return NotEncryptedFileStorageStrategy{}
+	case "output":
+		return NoSaveStrategy{}
 	case "":
 		return NoSaveStrategy{}
 	default:

@@ -18,7 +18,7 @@ message AddPasswordReq {
 message Configuration {
     string method = 1;
     string seed = 2;
-    int32 factor = 3;
+    int32 size = 3;
     string storage = 4;
     bool output = 5;
 }

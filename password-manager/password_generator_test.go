@@ -31,7 +31,7 @@ func TestGeneratePassword(t *testing.T) {
 	t.Run("returns valid UUID v4 on uuid PassWordConfiguration method", func(t *testing.T) {
 		got := GeneratePassword(PasswordConfiguration{
 			Method: "uuid",
-			Factor: 4,
+			Size:   10,
 			Seed:   "123",
 		})
 		assertCorrectUUID(t, got)
@@ -40,7 +40,7 @@ func TestGeneratePassword(t *testing.T) {
 	t.Run("returns valid UUID v5 on uuid PassWordConfiguration method", func(t *testing.T) {
 		got := GeneratePassword(PasswordConfiguration{
 			Method: "uuid",
-			Factor: 5,
+			Size:   10,
 			Seed:   "123",
 		})
 		assertCorrectUUID(t, got)
@@ -49,12 +49,12 @@ func TestGeneratePassword(t *testing.T) {
 	t.Run("returns different UUID v4 on uuid PassWordConfiguration method", func(t *testing.T) {
 		got := GeneratePassword(PasswordConfiguration{
 			Method: "uuid",
-			Factor: 4,
+			Size:   10,
 			Seed:   "123",
 		})
 		got2 := GeneratePassword(PasswordConfiguration{
 			Method: "uuid",
-			Factor: 4,
+			Size:   10,
 			Seed:   "123",
 		})
 		if got == got2 {
@@ -65,12 +65,12 @@ func TestGeneratePassword(t *testing.T) {
 	t.Run("returns different UUID v5 on uuid PassWordConfiguration method", func(t *testing.T) {
 		got := GeneratePassword(PasswordConfiguration{
 			Method: "uuid",
-			Factor: 5,
+			Size:   10,
 			Seed:   "123",
 		})
 		got2 := GeneratePassword(PasswordConfiguration{
 			Method: "uuid",
-			Factor: 5,
+			Size:   10,
 			Seed:   "123",
 		})
 		if got == got2 {

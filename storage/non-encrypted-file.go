@@ -7,13 +7,13 @@ import (
 	"os"
 )
 
-var STORAGE_FILE = os.Getenv("HOME") + "/.secure/.passwordmanager.json"
+var storageFile = os.Getenv("HOME") + "/.secure/.passwordmanager.json"
 
 type NotEncryptedFileStorageStrategy struct {
 }
 
 func (nefSS NotEncryptedFileStorageStrategy) StorageSave(passwordEntry PasswordEntry, output bool) {
-	file, err := ioutil.ReadFile(STORAGE_FILE)
+	file, err := ioutil.ReadFile(storageFile)
 	savedPasswords := StorePasswords{}
 	if err != nil {
 		savedPasswords.StoredPasswords = make(map[string]PasswordEntry)
@@ -30,7 +30,7 @@ func (nefSS NotEncryptedFileStorageStrategy) StorageSave(passwordEntry PasswordE
 	if output {
 		fmt.Println("Saved Passwords file " + string(jsonSavedPasswords))
 	}
-	errorOnWriting := ioutil.WriteFile(STORAGE_FILE, jsonSavedPasswords, 0644)
+	errorOnWriting := ioutil.WriteFile(storageFile, jsonSavedPasswords, 0644)
 	if errorOnWriting != nil {
 		fmt.Println("Error on saving the file")
 		panic(errorOnWriting)
@@ -38,7 +38,7 @@ func (nefSS NotEncryptedFileStorageStrategy) StorageSave(passwordEntry PasswordE
 }
 
 func (nefSS NotEncryptedFileStorageStrategy) StorageGet(tag string, username string, output bool) string {
-	file, err := ioutil.ReadFile(STORAGE_FILE)
+	file, err := ioutil.ReadFile(storageFile)
 	if err != nil {
 		fmt.Println("404 - File of Password not found!")
 		return ""

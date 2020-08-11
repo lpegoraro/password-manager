@@ -15,7 +15,7 @@ func (*DefaultPasswordManagerServer) Add(ctx context.Context, req *remote.AddPas
 		configuration = PasswordConfiguration{
 			Method:  req.OverrideConfiguration.Method,
 			Seed:    req.OverrideConfiguration.Seed,
-			Factor:  req.OverrideConfiguration.Factor,
+			Size:    req.OverrideConfiguration.Size,
 			Storage: req.OverrideConfiguration.Storage,
 			Output:  req.OverrideConfiguration.Output,
 		}

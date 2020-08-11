@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 )
 
-var COMMENDATION = "It is highly recommended to change the default by creating a config file, please run password_manager config"
+var commendation = "It is highly recommended to change the default by creating a config file, please run password_manager config"
 var homeDir = os.Getenv("HOME")
 var CONFIG_FILE = homeDir + "/.secure/config/password_configuration.json"
 
@@ -20,7 +20,7 @@ func GetDefaultConfig() PasswordConfiguration {
 	return PasswordConfiguration{
 		Method:  "uuid",
 		Seed:    "pwd_manager_test",
-		Factor:  4,
+		Size:    10,
 		Storage: "output",
 		Output:  true,
 	}
@@ -32,11 +32,11 @@ func check(e error) {
 	}
 }
 
-func CreateConfigFile(method string, seed string, factor int32, storageType string) {
+func CreateConfigFile(method string, seed string, size int32, storageType string) {
 	configuration := PasswordConfiguration{
 		Method:  method,
 		Seed:    seed,
-		Factor:  factor,
+		Size:    size,
 		Storage: storageType,
 		Output:  false,
 	}
@@ -57,7 +57,7 @@ func CreateConfigFile(method string, seed string, factor int32, storageType stri
 func LoadFromFile() PasswordConfiguration {
 	configFile, err := ioutil.ReadFile(CONFIG_FILE)
 	if err != nil {
-		fmt.Println(COMMENDATION)
+		fmt.Println(commendation)
 		fmt.Println(err)
 		return GetDefaultConfig()
 	}

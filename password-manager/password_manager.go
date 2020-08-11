@@ -17,13 +17,13 @@ var ListOfCommands = "\n\thelp | -h: Prints this message\n" +
 	"\tversion | -v: Print the version of the app\n" +
 	"\tget | -g {DESCRIPTION} {USERNAME} {OPTIONS}: Copy the password to the clipboard, for more information use `password_manager get help\n" +
 	"\tadd | -a {DESCRIPTION} {USERNAME} {OPTIONS}: Add a new password entry, for more information use `password_manager add help\n" +
-	"\tconfig | -c {METHOD} {SEED} {FACTOR} {STORAGE_TYPE}: Configure encryption or password generation method\n" +
+	"\tconfig | -c {METHOD} {SEED} {SIZE} {STORAGE_TYPE}: Configure encryption or password generation method\n" +
 	"\t | \t \"Method\": Type of password, please choose from the following {uuid | cert | custom }\n" +
 	"\t | \t \"Seed\": Any passfrase you would like\n" +
-	"\t | \t \"Factor\": Given the Method uuid, you can choose between 4 and 5\n" +
-	"\t | \t \t   Given the Method cert you can choose the algorithym for the password creation\n" +
+	"\t | \t \"Size\": The size of the password to be generated\n" +
+	"\t | \t \t        Given the Method cert you can choose the algorithym for the password creation\n" +
 	"\t | \t \"Storage Type\": Only supporting \"NOT_ENCRYPTED_FILE\" storage at the moment, you can choose \n" +
-	"\t | \t \t   You can choose output also, but you will need to manually configure in the settings since this \n" +
+	"\t | \t \t   You can choose \"OUTPUT\" also, but you will need to manually configure in the settings since this \n" +
 	"\t | \t \tis a development feature only.\n"
 
 var HELP_COMMAND = ConfigArgument{
@@ -77,10 +77,10 @@ var CONFIG_COMMAND = ConfigArgument{
 	description: "Configure the password generation\n" +
 		"Options:\n" +
 		"\thelp: Print this help\n" +
-		"\tconfig | -c {METHOD} {SEED} {FACTOR} {STORAGE_TYPE}: Configure encryption or password generation method\n" +
+		"\tconfig | -c {METHOD} {SEED} {SIZE} {STORAGE_TYPE}: Configure encryption or password generation method\n" +
 		"\t | \t \"Method\": Type of password, please choose from the following {uuid | cert | custom }\n" +
 		"\t | \t \"Seed\": Any passfrase you would like\n" +
-		"\t | \t \"Factor\": Given the Method uuid, you can choose between 4 and 5\n" +
+		"\t | \t \"Size\": The size of the password to be generated\n" +
 		"\t | \t \t   Given the Method cert you can choose the algorithym for the password creation\n" +
 		"\t | \t \"Storage Type\": Only supporting \"NOT_ENCRYPTED_FILE\" storage at the moment, you can choose \n" +
 		"\t | \t \t   You can choose output also, but you will need to manually configure in the settings since this \n" +
@@ -121,12 +121,12 @@ func parseArgs(arguments []string) error {
 func handleConfig(arguments []string) {
 	method := arguments[1]
 	seed := arguments[2]
-	factor, err := strconv.ParseInt(arguments[3], 10, 8)
+	size, err := strconv.ParseInt(arguments[3], 10, 8)
 	if err != nil {
 		fmt.Println(err)
 	}
 	storageType := arguments[4]
-	CreateConfigFile(method, seed, int32(factor), storageType)
+	CreateConfigFile(method, seed, int32(size), storageType)
 }
 
 func handleAdd(arguments []string) {

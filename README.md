@@ -38,11 +38,11 @@ Usage: `password_manager {COMMANDS} {OPTIONS}`
 	version | -v: Print the version of the app
 	get | -g {DESCRIPTION} {USERNAME} {OPTIONS}: Copy the password to the clipboard, for more information use `password_manager get help
 	add | -a {DESCRIPTION} {USERNAME} {OPTIONS}: Add a new password entry, for more information use `password_manager add help
-	config | -c {METHOD} {SEED} {FACTOR} {STORAGE_TYPE}: Configure encryption or password generation method
+	config | -c {METHOD} {SEED} {SIZE} {STORAGE_TYPE}: Configure encryption or password generation method
 	 | 	 "Method": Type of password, please choose from the following {uuid | cert | custom }
 	 | 	 "Seed": Any passfrase you would like
-	 | 	 "Factor": Given the Method uuid, you can choose between 4 and 5
-	 | 	 	   Given the Method cert you can choose the algorithym for the password creation
+	 |   "Size": The size of the password to be generated
+	 |         Given the Method cert you can choose the algorithym for the password creation
 	 | 	 "Storage Type": Only supporting "NOT_ENCRYPTED_FILE" storage at the moment, you can choose
 	 | 	 	   You can choose output also, but you will need to manually configure in the settings since this
 	 | 	 	is a development feature only.

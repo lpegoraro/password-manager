@@ -6,7 +6,6 @@ import (
 	"io"
 	"os"
 	"strings"
-	"time"
 
 	uuid "github.com/nu7hatch/gouuid"
 )
@@ -14,7 +13,7 @@ import (
 type PasswordConfiguration struct {
 	Method  string `json: "method"`
 	Seed    string `json: "seed"`
-	Factor  int32  `json: "factor"`
+	Size    int32  `json: "size"`
 	Storage string `json: "storage"`
 	Output  bool   `json: "show_output"`
 }
@@ -22,7 +21,7 @@ type PasswordConfiguration struct {
 func GeneratePassword(passwordConfiguration PasswordConfiguration) string {
 	switch passwordConfiguration.Method {
 	case "uuid":
-		return getUuid(passwordConfiguration.Factor, passwordConfiguration.Seed)
+		return getUuid()
 	case "cert":
 		return getCert(passwordConfiguration)
 	case "custom":
@@ -44,20 +43,10 @@ func getCert(passwordConfiguration PasswordConfiguration) string {
 	return ""
 }
 
-func getUuid(Factor int32, pattern string) string {
-	entropy := pattern + time.Now().String()
-	if Factor == 4 {
-		u4, err := uuid.NewV4()
-		if err != nil {
-			return ""
-		}
-		return u4.String()
-	} else if Factor == 5 {
-		u5, err := uuid.NewV5(uuid.NamespaceURL, []byte(entropy))
-		if err != nil {
-			return ""
-		}
-		return u5.String()
+func getUuid() string {
+	u4, err := uuid.NewV4()
+	if err != nil {
+		return ""
 	}
-	return ""
+	return u4.String()
 }
