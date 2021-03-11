@@ -12,11 +12,11 @@ import (
 )
 
 type PasswordConfiguration struct {
-	Method  string `json: "method"`
-	Seed    string `json: "seed"`
-	Factor  int32  `json: "factor"`
-	Storage string `json: "storage"`
-	Output  bool   `json: "show_output"`
+	Method  string `json:"method"`
+	Seed    string `json:"seed"`
+	Factor  int32  `json:"factor"`
+	Storage string `json:"storage"`
+	Output  bool   `json:"show_output"`
 }
 
 func GeneratePassword(passwordConfiguration PasswordConfiguration) string {
@@ -40,7 +40,7 @@ func readPassword(in io.Reader) string {
 	return password
 }
 
-func getCert(passwordConfiguration PasswordConfiguration) string {
+func getCert(_ PasswordConfiguration) string {
 	return ""
 }
 
