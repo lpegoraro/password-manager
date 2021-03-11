@@ -48,13 +48,12 @@ Usage: `password_manager {COMMANDS} {OPTIONS}`
 	 | 	 	is a development feature only.
 ```
 
-
-
 ## Serving
 
 These are the diagrams exemplifying the flow to connect:
 
 Preparation
+
 ```sequence
 Tenant->PwdMngr: Upload PEM Key
 PwdMngr->Tenant: Fingerprint
@@ -63,6 +62,7 @@ PwdMngr->Tenant: Port to connect
 ```
 
 Serving
+
 ```flow
 st=>start: Tenant sends Request for Serve with given Fingerprint
 publickey=>operation: From Tenant Name retrieve key
@@ -83,10 +83,6 @@ respond=>operation: Sends encrypted Response
 
 st->conf->command->bundle->respond
 ```
-
-
-
-
 
 ## TODO
 
