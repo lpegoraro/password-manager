@@ -16,7 +16,7 @@ func save(description string, username string, configuration PasswordConfigurati
 	storageStrategy := storage.BuildStorage(storageType)
 	storageStrategy.StorageSave(passwordStore, configuration.Output)
 	if configuration.Output {
-		fmt.Println("Password Generated: " + password)
+		log.Println("Password Generated: " + password)
 	}
 }
 

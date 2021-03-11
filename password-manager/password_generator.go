@@ -34,7 +34,7 @@ func GeneratePassword(passwordConfiguration PasswordConfiguration) string {
 
 func readPassword(in io.Reader) string {
 	reader := bufio.NewReader(in)
-	fmt.Println("Insert the password you want:")
+	log.Println("Insert the password you want:")
 	password, _ := reader.ReadString('\n')
 	password = strings.Replace(password, "\n", "", -1)
 	return password
