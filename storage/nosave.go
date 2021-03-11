@@ -1,6 +1,6 @@
 package storage
 
-import "fmt"
+import "log"
 
 type NoSaveStrategy struct {
 }
