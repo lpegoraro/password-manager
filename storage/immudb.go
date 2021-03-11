@@ -9,12 +9,10 @@ import (
 	"log"
 )
 
-
 type ImmutableDBStorageStrategy struct {
 	client immudb.ImmuClient
-	ctx context.Context
-	md metadata.MD
-
+	ctx    context.Context
+	md     metadata.MD
 }
 
 func NewImmuDbStorageStrategy() (*ImmutableDBStorageStrategy, error) {
@@ -24,7 +22,7 @@ func NewImmuDbStorageStrategy() (*ImmutableDBStorageStrategy, error) {
 	}
 	ctx := context.Background()
 	// login with default username and password and storing a token
-	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb2`))
+	lr, err := client.Login(ctx, []byte(`immudb`), []byte(`immudb2`))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -35,11 +33,10 @@ func NewImmuDbStorageStrategy() (*ImmutableDBStorageStrategy, error) {
 	return &ImmutableDBStorageStrategy{client: client, md: md, ctx: ctx}, nil
 }
 
-
 func (i ImmutableDBStorageStrategy) StorageSave(passwordEntry PasswordEntry, _ bool) {
 	passwordKey := fmt.Sprintf("%v-%v", passwordEntry.Tag, passwordEntry.Username)
 	tx, err := i.client.Set(i.ctx, []byte(passwordKey), []byte(passwordEntry.Password))
-	if  err != nil {
+	if err != nil {
 		log.Fatal(err)
 	}
 
@@ -49,7 +46,7 @@ func (i ImmutableDBStorageStrategy) StorageSave(passwordEntry PasswordEntry, _ b
 func (i ImmutableDBStorageStrategy) StorageGet(tag string, username string, output bool) string {
 	passwordKey := fmt.Sprintf("%v-%v", tag, username)
 	entry, err := i.client.Get(i.ctx, []byte(passwordKey))
-	if  err != nil {
+	if err != nil {
 		log.Fatal(err)
 	}
 	return string(entry.Value)
