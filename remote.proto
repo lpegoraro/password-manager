@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option go_package = "github.com/lpegoraro/password-manager/remote";
+
 service PasswordManager {
     rpc Add(AddPasswordReq) returns (PasswordValue);
     rpc Get(GetPasswordReq) returns (PasswordValue);

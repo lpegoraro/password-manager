@@ -5,18 +5,17 @@ all: docker-immudb install
 
 docker-immudb-teardown:
 	$(info =================== Cleaning ImmuDB Docker Container ===================)
-	docker stop immudb
-	docker remove immudb
-	docker network remove immudb
+	docker rm -f immudb || echo "No container found"
+	docker network prune -a -y
 
 docker-immudb:
 	$(info =================== Starting ImmuDB Docker Container ===================)
-	docker network create immudbnet
-	docker run -d --net immudbnet -it --rm --name immudb -p 3322:3322 codenotary/immudb:latest
+	docker network create immudbnet || echo "Network already created"
+	docker run -d --net immudbnet -it --rm --name immudb -p 3322:3322 codenotary/immudb:latest || echo " Container was up"
 
 install:
 	$(info =================== Installing Password Manager ===================)
-	protoc --go-grpc_out=remote remote.proto
+	# protoc --go-grpc_out=. remote.proto
 	go build -o "${GOPATH}"/bin/password-manager github.com/lpegoraro/password-manager/password-manager
 
 install-protoc:
