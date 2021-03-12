@@ -11,7 +11,7 @@ docker-immudb-teardown:
 docker-immudb:
 	$(info =================== Starting ImmuDB Docker Container ===================)
 	docker network create immudbnet || echo "Network already created"
-	docker run -d --net immudbnet -it --rm --name immudb -p 3322:3322 codenotary/immudb:latest || echo " Container was up"
+	docker run -it -d -p 3322:3322 -p 9497:9497 -v immudb:/var/lib/immudb --env IMMUDB_ADDRESS=0.0.0.0 --name immudb codenotary/immudb:latest || echo " Container was up"
 
 install:
 	$(info =================== Installing Password Manager ===================)

@@ -4,6 +4,7 @@ go 1.15
 
 require (
 	github.com/codenotary/immudb v0.9.1
+	github.com/golang/protobuf v1.4.3
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d
 	github.com/stretchr/testify v1.6.1
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect

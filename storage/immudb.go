@@ -22,9 +22,9 @@ func NewImmuDbStorageStrategy() (*ImmutableDBStorageStrategy, error) {
 	}
 	ctx := context.Background()
 	// login with default username and password and storing a token
-	lr, err := client.Login(ctx, []byte(`immudb`), []byte(`immudb2`))
+	lr, err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("error connecting to immudb", err)
 	}
 	// set up an authenticated context that will be required in future operations
 	md := metadata.Pairs("authorization", lr.Token)
@@ -33,14 +33,15 @@ func NewImmuDbStorageStrategy() (*ImmutableDBStorageStrategy, error) {
 	return &ImmutableDBStorageStrategy{client: client, md: md, ctx: ctx}, nil
 }
 
-func (i ImmutableDBStorageStrategy) StorageSave(passwordEntry PasswordEntry, _ bool) {
+func (i ImmutableDBStorageStrategy) StorageSave(passwordEntry PasswordEntry, output bool) {
 	passwordKey := fmt.Sprintf("%v-%v", passwordEntry.Tag, passwordEntry.Username)
-	tx, err := i.client.Set(i.ctx, []byte(passwordKey), []byte(passwordEntry.Password))
+	_, err := i.client.Set(i.ctx, []byte(passwordKey), []byte(passwordEntry.Password))
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("error adding key ", err)
 	}
-
-	fmt.Printf("Successfully committed tx %d\n", tx.Id)
+	if output {
+		log.Printf("Password: %v\n", passwordEntry.Password)
+	}
 }
 
 func (i ImmutableDBStorageStrategy) StorageGet(tag string, username string, output bool) string {
