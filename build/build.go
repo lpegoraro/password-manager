@@ -10,12 +10,11 @@ import (
 
 var (
 	builderOpts = buildah.BuilderOptions{
-		FromImage:        "golang:latest",
+		FromImage: "golang:latest",
 	}
-
 )
 
-func buildContainer()  {
+func buildContainer() {
 	buildStoreOptions, err := storage.DefaultStoreOptions(unshare.IsRootless(), unshare.GetRootlessUID())
 	if err != nil {
 		log.Fatal("error on building", err)
@@ -26,7 +25,7 @@ func buildContainer()  {
 		log.Fatal("error on building", err)
 		return
 	}
-	builder, err:= buildah.NewBuilder(context.TODO(), buildStore, builderOpts)
+	builder, err := buildah.NewBuilder(context.TODO(), buildStore, builderOpts)
 	if err != nil {
 		log.Fatal("error on building", err)
 		return
