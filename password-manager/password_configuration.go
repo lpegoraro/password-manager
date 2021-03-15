@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"path/filepath"
 )
 
 var COMMENDATION = "It is highly recommended to change the default by creating a config file, please run password_manager config"
@@ -21,15 +20,16 @@ func GetDefaultConfig() PasswordConfiguration {
 	return PasswordConfiguration{
 		Method:  "uuid",
 		Seed:    "pwd_manager_test",
+		Length:  15,
 		Factor:  4,
 		Storage: "output",
 		Output:  true,
 	}
 }
 
-func check(e error) {
+func errorCheck(e error) {
 	if e != nil {
-		panic(e)
+		log.Fatal("Error found", e)
 	}
 }
 
@@ -44,14 +44,12 @@ func CreateConfigFile(method string, seed string, factor int32, storageType stri
 	configurationJson, err := json.Marshal(configuration)
 	log.Println(configurationJson)
 	if err != nil {
-		log.Println("Error on marshalling json")
-		panic(err)
+		log.Fatal("Error on marshalling json", err)
 	}
 	errorOnWriting := ioutil.WriteFile(CONFIG_FILE, configurationJson, 0644)
 	fmt.Print("wrote file")
 	if errorOnWriting != nil {
-		log.Println("Error on saving the file")
-		panic(errorOnWriting)
+		log.Fatal("Error on saving the file", errorOnWriting)
 	}
 }
 
@@ -63,26 +61,7 @@ func LoadFromFile() PasswordConfiguration {
 		return GetDefaultConfig()
 	}
 	configuration := PasswordConfiguration{}
-	err2 := json.Unmarshal(configFile, &configuration)
-	check(err2)
+	err = json.Unmarshal(configFile, &configuration)
+	errorCheck(err)
 	return configuration
-}
-
-func FindFile(targetDir string, pattern []string) []byte {
-	foundPath := ""
-	for _, v := range pattern {
-		matches, err := filepath.Glob(targetDir + v)
-		check(err)
-		if err != nil {
-			log.Println(err)
-		}
-
-		if len(matches) != 0 {
-			log.Println("Found : ", matches)
-			foundPath = matches[0]
-		}
-	}
-	file, err := ioutil.ReadFile(foundPath)
-	check(err)
-	return file
 }
