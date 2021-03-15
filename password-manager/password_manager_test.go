@@ -58,7 +58,7 @@ func TestParseArgsConfig(t *testing.T) {
 	if assert.NoError(t, parseArgs(argConfig)) {
 		// create configuration file
 		if assert.FileExists(t, CONFIG_FILE) {
-			// TODO check if there is correct configuration
+			// TODO errorCheck if there is correct configuration
 		}
 	}
 }
@@ -74,7 +74,7 @@ func TestParseArgsHandleAdd(t *testing.T) {
 	if assert.NoError(t, parseArgs(argConfig)) {
 		// create configuration file
 		if assert.FileExists(t, CONFIG_FILE) {
-			// TODO check if there is correct configuration
+			// TODO errorCheck if there is correct configuration
 		}
 	}
 	argAdd := []string{"-a", "this", "newPhrase"}
@@ -88,7 +88,7 @@ func TestParseArgsHandleGet(t *testing.T) {
 	if assert.NoError(t, parseArgs(argConfig)) {
 		// create configuration file
 		if assert.FileExists(t, CONFIG_FILE) {
-			// TODO check if there is correct configuration
+			// TODO errorCheck if there is correct configuration
 		}
 	}
 	argAdd := []string{"-a", "this", "newPhrase"}

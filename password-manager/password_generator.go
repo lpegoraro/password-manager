@@ -13,6 +13,7 @@ import (
 
 type PasswordConfiguration struct {
 	Method  string `json:"method"`
+	Length  int32  `json:"password_length"`
 	Seed    string `json:"seed"`
 	Factor  int32  `json:"factor"`
 	Storage string `json:"storage"`
@@ -23,8 +24,8 @@ func GeneratePassword(passwordConfiguration PasswordConfiguration) string {
 	switch passwordConfiguration.Method {
 	case "uuid":
 		return getUuid(passwordConfiguration.Factor, passwordConfiguration.Seed)
-	case "cert":
-		return getCert(passwordConfiguration)
+	case "hash":
+		return getHash(passwordConfiguration)
 	case "custom":
 		return readPassword(os.Stdin)
 	default:
@@ -40,8 +41,18 @@ func readPassword(in io.Reader) string {
 	return password
 }
 
-func getCert(_ PasswordConfiguration) string {
-	return ""
+func getHash(c PasswordConfiguration) string {
+	pg := PasswordGeneration{
+		config: config{
+			flags:  All,
+			length: c.Length,
+		},
+	}
+	gen, err := pg.genPass()
+	if err != nil {
+		log.Fatal("Could not generate password", err)
+	}
+	return gen
 }
 
 func getUuid(Factor int32, pattern string) string {
