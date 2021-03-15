@@ -2,8 +2,8 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"io"
+	"log"
 	"os"
 	"strings"
 	"time"
@@ -12,11 +12,11 @@ import (
 )
 
 type PasswordConfiguration struct {
-	Method  string `json: "method"`
-	Seed    string `json: "seed"`
-	Factor  int32  `json: "factor"`
-	Storage string `json: "storage"`
-	Output  bool   `json: "show_output"`
+	Method  string `json:"method"`
+	Seed    string `json:"seed"`
+	Factor  int32  `json:"factor"`
+	Storage string `json:"storage"`
+	Output  bool   `json:"show_output"`
 }
 
 func GeneratePassword(passwordConfiguration PasswordConfiguration) string {
@@ -34,13 +34,13 @@ func GeneratePassword(passwordConfiguration PasswordConfiguration) string {
 
 func readPassword(in io.Reader) string {
 	reader := bufio.NewReader(in)
-	fmt.Println("Insert the password you want:")
+	log.Println("Insert the password you want:")
 	password, _ := reader.ReadString('\n')
 	password = strings.Replace(password, "\n", "", -1)
 	return password
 }
 
-func getCert(passwordConfiguration PasswordConfiguration) string {
+func getCert(_ PasswordConfiguration) string {
 	return ""
 }
 

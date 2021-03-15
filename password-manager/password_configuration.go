@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 )
@@ -41,15 +42,15 @@ func CreateConfigFile(method string, seed string, factor int32, storageType stri
 		Output:  false,
 	}
 	configurationJson, err := json.Marshal(configuration)
-	fmt.Println(configurationJson)
+	log.Println(configurationJson)
 	if err != nil {
-		fmt.Println("Error on marshalling json")
+		log.Println("Error on marshalling json")
 		panic(err)
 	}
 	errorOnWriting := ioutil.WriteFile(CONFIG_FILE, configurationJson, 0644)
 	fmt.Print("wrote file")
 	if errorOnWriting != nil {
-		fmt.Println("Error on saving the file")
+		log.Println("Error on saving the file")
 		panic(errorOnWriting)
 	}
 }
@@ -57,8 +58,8 @@ func CreateConfigFile(method string, seed string, factor int32, storageType stri
 func LoadFromFile() PasswordConfiguration {
 	configFile, err := ioutil.ReadFile(CONFIG_FILE)
 	if err != nil {
-		fmt.Println(COMMENDATION)
-		fmt.Println(err)
+		log.Println(COMMENDATION)
+		log.Println(err)
 		return GetDefaultConfig()
 	}
 	configuration := PasswordConfiguration{}
@@ -73,11 +74,11 @@ func FindFile(targetDir string, pattern []string) []byte {
 		matches, err := filepath.Glob(targetDir + v)
 		check(err)
 		if err != nil {
-			fmt.Println(err)
+			log.Println(err)
 		}
 
 		if len(matches) != 0 {
-			fmt.Println("Found : ", matches)
+			log.Println("Found : ", matches)
 			foundPath = matches[0]
 		}
 	}

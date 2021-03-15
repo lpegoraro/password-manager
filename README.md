@@ -4,6 +4,8 @@
 [![Join the chat at https://gitter.im/password-manager-go/community](https://badges.gitter.im/password-manager-go/community.svg)](https://gitter.im/password-manager-go/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![codecov](https://codecov.io/gh/lpegoraro/password-manager/branch/master/graph/badge.svg)](https://codecov.io/gh/lpegoraro/password-manager)
 
+<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pegoraro.dev" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
 POC created to test and enhance Go skills
 
 ## Getting started

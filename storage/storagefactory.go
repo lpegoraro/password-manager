@@ -1,5 +1,7 @@
 package storage
 
+import "log"
+
 type PasswordEntry struct {
 	Tag      string `json:"tag"`
 	Username string `json:"username"`
@@ -19,6 +21,13 @@ func BuildStorage(storageType string) StorageStrategy {
 	switch storageType {
 	case "NOT_ENCRYPTED_FILE":
 		return NotEncryptedFileStorageStrategy{}
+	case "IMMUDB":
+		immudb, err := NewImmuDbStorageStrategy()
+		if err != nil {
+			log.Fatalf("Error connecting to ImmuDB, %e", err)
+
+		}
+		return immudb
 	case "":
 		return NoSaveStrategy{}
 	default:

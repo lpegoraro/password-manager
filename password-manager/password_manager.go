@@ -2,7 +2,7 @@ package main
 
 import (
 	"errors"
-	"fmt"
+	"log"
 	"os"
 	"strconv"
 
@@ -93,10 +93,10 @@ func parseArgs(arguments []string) error {
 		value := arguments[index]
 		if checkIfCommand(value, HELP_COMMAND) {
 			command = "help"
-			fmt.Println(HELP_COMMAND.description)
+			log.Println(HELP_COMMAND.description)
 		} else if checkIfCommand(value, ABOUT) {
 			command = "about"
-			fmt.Println(ABOUT.description)
+			log.Println(ABOUT.description)
 		} else if checkIfCommand(value, GET_COMMAND) {
 			command = "get"
 			handleGet(arguments)
@@ -112,8 +112,8 @@ func parseArgs(arguments []string) error {
 		}
 	}
 	if len(arguments) == 0 || command == "" {
-		fmt.Println(ABOUT.description)
-		fmt.Println(HELP_COMMAND.description)
+		log.Println(ABOUT.description)
+		log.Println(HELP_COMMAND.description)
 		return errors.New("No valid argument found")
 	}
 	return nil
@@ -123,7 +123,7 @@ func handleConfig(arguments []string) {
 	seed := arguments[2]
 	factor, err := strconv.ParseInt(arguments[3], 10, 8)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 	storageType := arguments[4]
 	CreateConfigFile(method, seed, int32(factor), storageType)
@@ -140,9 +140,9 @@ func handleGet(arguments []string) {
 	username := arguments[2]
 	savedPassword := GetPassword(description, username)
 	if savedPassword == "" {
-		fmt.Println("Failed to fetch password")
+		log.Println("Failed to fetch password")
 	}
-	fmt.Println(savedPassword)
+	log.Println(savedPassword)
 }
 
 func handleServe(arguments []string) {

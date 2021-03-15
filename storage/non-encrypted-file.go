@@ -2,8 +2,8 @@ package storage
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 )
 
@@ -28,11 +28,11 @@ func (nefSS NotEncryptedFileStorageStrategy) StorageSave(passwordEntry PasswordE
 	savedPasswords.StoredPasswords[passwordKey] = passwordEntry
 	jsonSavedPasswords, err := json.Marshal(savedPasswords)
 	if output {
-		fmt.Println("Saved Passwords file " + string(jsonSavedPasswords))
+		log.Println("Saved Passwords file " + string(jsonSavedPasswords))
 	}
 	errorOnWriting := ioutil.WriteFile(STORAGE_FILE, jsonSavedPasswords, 0644)
 	if errorOnWriting != nil {
-		fmt.Println("Error on saving the file")
+		log.Println("Error on saving the file")
 		panic(errorOnWriting)
 	}
 }
@@ -40,7 +40,7 @@ func (nefSS NotEncryptedFileStorageStrategy) StorageSave(passwordEntry PasswordE
 func (nefSS NotEncryptedFileStorageStrategy) StorageGet(tag string, username string, output bool) string {
 	file, err := ioutil.ReadFile(STORAGE_FILE)
 	if err != nil {
-		fmt.Println("404 - File of Password not found!")
+		log.Println("404 - File of Password not found!")
 		return ""
 	}
 	savedPasswords := StorePasswords{}
@@ -53,6 +53,6 @@ func (nefSS NotEncryptedFileStorageStrategy) StorageGet(tag string, username str
 			return passwordValue.Password
 		}
 	}
-	fmt.Println("404 - Password not found!")
+	log.Println("404 - Password not found!")
 	return ""
 }
