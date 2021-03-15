@@ -4,7 +4,9 @@ go 1.15
 
 require (
 	github.com/codenotary/immudb v0.9.1
-	github.com/containers/buildah v1.19.8 // indirect
+	github.com/containers/buildah v1.19.8
+	github.com/containers/image/v5 v5.10.2
+	github.com/containers/storage v1.24.6
 	github.com/golang/protobuf v1.4.3
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d
 	github.com/stretchr/testify v1.7.0

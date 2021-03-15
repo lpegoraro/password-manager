@@ -3,8 +3,6 @@ package build
 import (
 	"context"
 	"github.com/containers/buildah"
-	"github.com/containers/buildah/define"
-	"github.com/containers/image/v5/types"
 	"github.com/containers/storage"
 	"github.com/containers/storage/pkg/unshare"
 	"log"
@@ -12,11 +10,7 @@ import (
 
 var (
 	builderOpts = buildah.BuilderOptions{
-		FromImage:        "golang:latest", // Starting image
-		Isolation:        define.IsolationChroot, // Isolation environment
-		CommonBuildOpts:  &define.CommonBuildOptions{},
-		ConfigureNetwork: define.NetworkDefault,
-		SystemContext: 	  &types.SystemContext {},
+		FromImage:        "golang:latest",
 	}
 
 )
