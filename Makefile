@@ -13,10 +13,15 @@ docker-immudb:
 	docker network create immudbnet || echo "Network already created"
 	docker run -it -d -p 3322:3322 -p 9497:9497 -v immudb:/var/lib/immudb --env IMMUDB_ADDRESS=0.0.0.0 --name immudb codenotary/immudb:latest || echo " Container was up"
 
+proto-gen:
+	$(info =================== Starting ImmuDB Docker Container ===================)
+	# For unknown reasons it is not longer generating messages as AddPasswordReq, etc...
+	# protoc --go-grpc_out=. -o=remote remote.proto
+
 install:
 	$(info =================== Installing Password Manager ===================)
-	# protoc --go-grpc_out=. remote.proto
-	go build -o "${GOPATH}"/bin/password-manager github.com/lpegoraro/password-manager/password-manager
+	go build -o build/password-manager github.com/lpegoraro/password-manager/password-manager
+	cp build/password-manager "${GOPATH}"/bin/password-manager
 
 install-protoc:
 	$(info =================== Installing Protoc ===================)
