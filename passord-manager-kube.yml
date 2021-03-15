@@ -1,0 +1,75 @@
+# Generation of Kubernetes YAML is still under development!
+#
+# Save the output of this file and use kubectl create -f to import
+# it into Kubernetes.
+#
+# Created with podman-3.0.1
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2021-03-15T01:20:28Z"
+  labels:
+    app: password-manager
+  name: password-manager
+spec:
+  containers:
+    - command:
+        - /usr/sbin/immudb
+      env:
+        - name: PATH
+          value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+        - name: TERM
+          value: xterm
+        - name: container
+          value: podman
+        - name: IMMUDB_CERTIFICATE
+          value: /usr/share/immudb/mtls/3_application/certs/server.pem
+        - name: IMMUDB_DEVMODE
+          value: "true"
+        - name: IMMUDB_ADDRESS
+          value: 0.0.0.0
+        - name: IMMUDB_PORT
+          value: "3322"
+        - name: IMMUDB_MAINTENANCE
+          value: "false"
+        - name: IMMUDB_DBNAME
+          value: immudb
+        - name: IMMUDB_LOGFILE
+        - name: IMMUADMIN_TOKENFILE
+          value: /var/lib/immudb/admin_token
+        - name: IMMUDB_PIDFILE
+        - name: IMMUDB_CLIENTCAS
+          value: /usr/share/immudb/mtls/2_intermediate/certs/ca-chain.pem
+        - name: IMMUDB_DIR
+          value: /var/lib/immudb
+        - name: IMMUDB_PKEY
+          value: /usr/share/immudb/mtls/3_application/private/key.pem
+        - name: IMMUDB_ADMIN_PASSWORD
+          value: immudb
+        - name: IMMUDB_MTLS
+          value: "false"
+        - name: IMMUDB_AUTH
+          value: "true"
+        - name: IMMUDB_DETACHED
+          value: "false"
+        - name: IMMUDB_HOME
+          value: /usr/share/immudb
+      image: docker.io/codenotary/immudb:latest
+      name: immudb
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: true
+        capabilities:
+          drop:
+            - CAP_MKNOD
+            - CAP_NET_RAW
+            - CAP_AUDIT_WRITE
+        privileged: false
+        readOnlyRootFilesystem: false
+        runAsGroup: 3322
+        runAsUser: 3322
+        seLinuxOptions: {}
+      workingDir: /
+  dnsConfig: {}
+  restartPolicy: Never
+status: {}
