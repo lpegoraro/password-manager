@@ -22,3 +22,11 @@ install-protoc:
 	$(info =================== Installing Protoc ===================)
 	#go get -u github.com/golang/protobuf/{proto,protoc-gen-go}
     #go get -u google.golang.org/grpc)
+
+build-certificate:
+ifeq (,$(wildcard certs))
+	$(info =================== Generate certificate for Signing Passwords ===================)
+	mkdir certs
+	openssl genrsa -out certs/pwdmgr.key 2048
+	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout certs/pwdmgr.key -out certs/pwdmgr.crt  -subj "/C=US/ST=Georgia/L=Atlanta/O=PasswordManager/CN=localhost"
+endif
